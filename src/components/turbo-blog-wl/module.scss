@@ -1,9 +1,7 @@
 .turbo_blog_wl {
-    padding: 50px;
-    background-color: #f5f5f5;
-
+    
     &__inner {
-        position: relative;
+        position: relative; 
     }
 
     &__title {
@@ -15,6 +13,35 @@
 
         &-title {
             font-size: 18px;
+        }
+    }
+
+    /* Meta styles - above content */
+    &__post-meta--above {
+        background: #f5f5f5;
+        padding: 10px 15px;
+        margin-bottom: 15px;
+        font-size: .8rem;
+        color: #666;
+        
+        span {
+            display: inline-block;
+            
+            &:not(:last-child)::after {
+                content: '|';
+                margin: 0 10px;
+                color: #ccc;
+            }
+        }
+        
+        a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            
+            &:hover {
+                color: #000;
+            }
         }
     }
 

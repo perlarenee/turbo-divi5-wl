@@ -31,8 +31,7 @@
   \*******************************************************************************************************************************************************************************************/
 @charset "UTF-8";
 .turbo_blog_wl {
-  padding: 50px;
-  background-color: #f5f5f5;
+  /* Meta styles - above content */
   /* ====================================
      POST INNER LAYOUTS (Image Positioning)
      ==================================== */
@@ -74,6 +73,29 @@
 }
 .turbo_blog_wl__post-item-title {
   font-size: 18px;
+}
+.turbo_blog_wl__post-meta--above {
+  background: #f5f5f5;
+  padding: 10px 15px;
+  margin-bottom: 15px;
+  font-size: 0.8rem;
+  color: #666;
+}
+.turbo_blog_wl__post-meta--above span {
+  display: inline-block;
+}
+.turbo_blog_wl__post-meta--above span:not(:last-child)::after {
+  content: "|";
+  margin: 0 10px;
+  color: #ccc;
+}
+.turbo_blog_wl__post-meta--above a {
+  color: #666;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.turbo_blog_wl__post-meta--above a:hover {
+  color: #000;
 }
 .turbo_blog_wl__post-meta--below {
   margin-top: 20px;
