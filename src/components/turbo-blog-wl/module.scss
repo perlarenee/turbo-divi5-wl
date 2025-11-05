@@ -1,0 +1,536 @@
+.turbo_blog_wl {
+    padding: 50px;
+    background-color: #f5f5f5;
+
+    &__inner {
+        position: relative;
+    }
+
+    &__title {
+        margin-bottom: 30px;
+    }
+
+    &__post-item {
+        margin-bottom: 20px;
+
+        &-title {
+            font-size: 18px;
+        }
+    }
+
+    &__post-meta--below {
+        margin-top: 20px;
+    }
+
+    &__post-taxonomy {
+        margin-bottom: 15px;
+        font-size: 14px;
+        color: #666;
+    }
+
+    &__post-author-info {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    &__post-author-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        flex-shrink: 0;
+    }
+
+    &__post-author-details {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    &__post-author-name {
+        font-weight: bold;
+        font-size: 16px;
+    }
+
+    &__post-date {
+        font-size: 14px;
+        color: #666;
+    }
+
+    /* ====================================
+       POST INNER LAYOUTS (Image Positioning)
+       ==================================== */
+    
+    /* Default: Vertical stacking (above/below) */
+    &__post-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    /* Horizontal layouts (left/right) */
+    &__post-inner--left,
+    &__post-inner--right {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 20px;
+    }
+
+    /* Featured image sizing for horizontal layouts */
+    &__post-inner--left .turbo_blog_wl__post-featured-image,
+    &__post-inner--right .turbo_blog_wl__post-featured-image {
+        flex: 0 0 45%; /* Fixed width at 45% */
+        max-width: 45%;
+        
+        img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+    }
+
+    /* Content wrapper sizing for horizontal layouts */
+    &__post-inner--left .turbo_blog_wl__post-content-wrapper,
+    &__post-inner--right .turbo_blog_wl__post-content-wrapper {
+        flex: 1 1 0;
+        min-width: 0; /* Prevent flex overflow */
+    }
+
+    /* ====================================
+       LAYOUT TYPES (Grid vs Full Width)
+       ==================================== */
+    
+    /* Full width layout */
+    &__post-items--fullwidth {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    /* Grid layout - styles.ts handles columns/gaps dynamically */
+    &__post-items--grid {
+        display: grid;
+        /* grid-template-columns comes from styles.ts */
+        /* row-gap comes from styles.ts */
+        /* column-gap comes from styles.ts */
+        
+        .turbo_blog_wl__post-item {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+
+    /* Full-width first post in grid - THIS IS KEY! */
+    &__post-item--full-width {
+        grid-column: 1 / -1; /* Span all columns */
+    }
+
+    /* Optional: Featured images in grid items */
+    &__post-featured-image {
+        img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    }
+
+  /* ====================================
+   PAGINATION
+   ==================================== */
+
+    &__pagination {
+        margin-top: 2em;
+        padding: 2em 0;
+        border-top: 1px solid #000;
+        border-bottom: 1px solid #000;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0;
+    }
+
+    &__pagination-prev,
+    &__pagination-next {
+        color: #000;
+        text-decoration: none;
+        text-transform: uppercase;
+        font-weight: bold;
+        transition: opacity 0.3s ease;
+        white-space: nowrap;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 5px 10px;
+        
+        &:hover:not(.turbo_blog_wl__pagination-disabled) {
+            opacity: 0.7;
+        }
+    }
+
+    &__pagination-disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
+    &__pagination-numbers {
+        display: flex;
+        gap: 5px;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+    }
+
+    &__pagination-number {
+        color: #000;
+        text-decoration: none;
+        padding: 5px 10px;
+        transition: all 0.3s ease;
+        background: none;
+        border: none;
+        cursor: pointer;
+        
+        &:hover:not(.turbo_blog_wl__pagination-current) {
+            opacity: 0.7;
+        }
+    }
+
+    &__pagination-current {
+        font-weight: bold;
+        color: #000;
+    }
+
+    &__pagination-number:not(.turbo_blog_wl__pagination-current) {
+        color: #999;
+    }
+
+    &__pagination-ellipsis {
+        color: #999;
+        padding: 5px 10px;
+        user-select: none;
+        pointer-events: none;
+    }
+
+    /* Tablet: Reduce size, keep single row */
+    @media only screen and (max-width: 980px) {
+        &__pagination {
+            gap: 0;
+            padding: 1.5em 0;
+        }
+        
+        &__pagination-prev,
+        &__pagination-next {
+            font-size: 0.85em;
+            padding: 4px 8px;
+        }
+        
+        &__pagination-numbers {
+            gap: 0;
+        }
+        
+        &__pagination-number,
+        &__pagination-ellipsis {
+            font-size: 0.85em;
+            padding: 4px 8px;
+        }
+    }
+
+    /* Phone: Remove pagination numbers, only show prev/next */
+    @media only screen and (max-width: 767px) {
+        &__pagination {
+            justify-content: space-between;
+            gap: 0;
+        }
+        
+        &__pagination-numbers {
+            display: none; /* Hide all page numbers on mobile */
+        }
+        
+        &__pagination-prev,
+        &__pagination-next {
+            font-size: 0.8em;
+            padding: 8px 12px;
+            flex: 1;
+            text-align: center;
+        }
+        
+        &__pagination-prev {
+            justify-content: flex-start;
+        }
+        
+        &__pagination-next {
+            justify-content: flex-end;
+        }
+    }
+
+    /* Responsive: Make horizontal layouts stack on mobile */
+    @media only screen and (max-width: 767px) {
+        &__post-inner--left,
+        &__post-inner--right {
+            flex-direction: column;
+        }
+
+        &__post-inner--left .turbo_blog_wl__post-featured-image,
+        &__post-inner--right .turbo_blog_wl__post-featured-image {
+            flex: 1 1 auto;
+            max-width: 100%;
+        }
+    }
+
+  /* ====================================
+   FILTER SIDEBAR
+   ==================================== */
+
+&__content-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+&__content-wrapper--with-filter {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+&__content-wrapper--filter-right {
+    flex-direction: row-reverse;
+}
+
+&__filter {
+    flex: 0 0 250px;
+    position: sticky;
+    top: 20px;
+}
+
+&__filter--left {
+    border-right: 1px solid #ddd;
+    padding-right: 30px;
+}
+
+&__filter--right {
+    border-left: 1px solid #ddd;
+    padding-left: 30px;
+}
+
+&__filter-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+&__filter-item {
+    text-align: left;
+    padding: 10px 15px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: capitalize;
+    text-decoration: none;
+    position: relative;
+    color: #999;
+    font-size: 16px;
+    display: block;
+    
+   /* &:first-child {
+        color: #000;
+        font-weight: bold;
+        text-transform: none;
+    }*/
+    
+    &:hover {
+        opacity: 0.7;
+    }
+}
+
+&__filter-item--active {
+    color: #000 !important;
+    font-weight: bold;
+    
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: #000;
+    }
+}
+
+// Active border position based on filter position
+&__filter--left &__filter-item--active::before {
+    right: -30px;
+}
+
+&__filter--right &__filter-item--active::before {
+    left: -30px;
+}
+
+&__posts-wrapper {
+    flex: 1;
+    min-width: 0;
+}
+
+/* Responsive: Stack filter on tablet and match pagination style */
+@media only screen and (max-width: 980px) {
+    &__content-wrapper--with-filter {
+        flex-direction: column;
+        gap: 0;
+    }
+    
+    &__filter {
+        flex: 1 1 auto;
+        width: 100%;
+        position: relative;
+        border: none !important;
+        padding: 0 0 2em 0 !important;
+        border-bottom: 1px solid #000 !important;
+        margin-bottom: 2em;
+    }
+    
+    &__filter-inner {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0;
+        justify-content: center;
+    }
+    
+    &__filter-item {
+        padding: 8px 12px;
+        background: none;
+        border: none;
+        text-align: center;
+        font-size: 0.85em;
+        
+        &:first-child {
+            text-transform: uppercase;
+        }
+        
+        &--active {
+            background: none;
+            text-decoration: underline;
+            
+            &::before {
+                display: none;
+            }
+        }
+    }
+}
+
+/* Phone: Simplify filter further */
+@media only screen and (max-width: 767px) {
+    &__filter {
+        padding: 0 0 1.5em 0 !important;
+        margin-bottom: 1.5em;
+    }
+    
+    &__filter-inner {
+        gap: 0;
+    }
+    
+    &__filter-item {
+        padding: 6px 10px;
+        font-size: 0.8em;
+    }
+}
+
+   /* ====================================
+   READ MORE STYLES
+   ==================================== */
+
+    // Arrow Style - Floats in top-right corner
+    &__post-item-title {
+        position: relative;
+        
+        a {
+            display: block;
+            position: relative;
+            padding-right: 30px; // Small space to prevent overlap on very short titles
+        }
+    }
+
+    &__read-more-arrow {
+        position: absolute;
+        top: 0;
+        right: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ff0000;
+        transition: transform 0.3s ease;
+        line-height: 1;
+        
+        svg {
+            width: 20px;
+            height: 20px;
+            display: block;
+        }
+        
+        // Hover effect - moves diagonally
+        a:hover & {
+            transform: translate(3px, -3px);
+        }
+    }
+
+    // When image is on the right, arrow goes to left
+    &__post-inner--right {
+        .turbo_blog_wl__read-more-arrow {
+            right: auto;
+            left: 0;
+        }
+        
+        .turbo_blog_wl__post-item-title a {
+            padding-right: 0;
+            padding-left: 30px;
+        }
+    }
+
+    // Link Style
+    &__read-more-link {
+        display: inline-block;
+        margin-top: 15px;
+        color: #000;
+        text-decoration: none;
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 14px;
+        transition: opacity 0.3s ease;
+        
+        &:hover {
+            opacity: 0.7;
+        }
+        
+        &::after {
+            content: ' →';
+            margin-left: 5px;
+        }
+    }
+
+    /* Responsive adjustments */
+    @media only screen and (max-width: 767px) {
+        &__post-item-title a {
+            padding-right: 28px;
+        }
+        
+        &__post-inner--right {
+            .turbo_blog_wl__post-item-title a {
+                padding-right: 0;
+                padding-left: 28px;
+            }
+        }
+        
+        &__read-more-arrow {
+            svg {
+                width: 18px;
+                height: 18px;
+            }
+        }
+        
+        &__read-more-link {
+            font-size: 12px;
+        }
+    }
+}
+

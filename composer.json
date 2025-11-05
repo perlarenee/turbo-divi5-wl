@@ -1,0 +1,9 @@
+{
+    "name": "divi/turbo-divi5-wl",
+    "autoload": {
+        "psr-4": {
+            "MEE\\Modules\\": "modules/"
+        }
+    },
+    "require": {}
+}

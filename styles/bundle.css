@@ -1,0 +1,517 @@
+/*!******************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./src/components/child-module/module.scss ***!
+  \******************************************************************************************************************************************************************************************/
+.example_child_module {
+  display: flex;
+  flex-wrap: wrap;
+}
+.example_child_module__icon.et-pb-icon {
+  font-size: 21px;
+  padding-top: 6px;
+  color: #29c4a9;
+}
+.example_child_module__content-container {
+  flex-grow: 1;
+  flex-basis: 0%;
+  padding-left: 15px;
+}
+.example_child_module__title {
+  font-size: 21px;
+  line-height: 1em;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+.example_child_module__content {
+  font-size: 13px;
+  line-height: 1.6em;
+  color: #868686;
+}
+/*!*******************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./src/components/turbo-blog-wl/module.scss ***!
+  \*******************************************************************************************************************************************************************************************/
+@charset "UTF-8";
+.turbo_blog_wl {
+  padding: 50px;
+  background-color: #f5f5f5;
+  /* ====================================
+     POST INNER LAYOUTS (Image Positioning)
+     ==================================== */
+  /* Default: Vertical stacking (above/below) */
+  /* Horizontal layouts (left/right) */
+  /* Featured image sizing for horizontal layouts */
+  /* Content wrapper sizing for horizontal layouts */
+  /* ====================================
+     LAYOUT TYPES (Grid vs Full Width)
+     ==================================== */
+  /* Full width layout */
+  /* Grid layout - styles.ts handles columns/gaps dynamically */
+  /* Full-width first post in grid - THIS IS KEY! */
+  /* Optional: Featured images in grid items */
+  /* ====================================
+   PAGINATION
+   ==================================== */
+  /* Tablet: Reduce size, keep single row */
+  /* Phone: Remove pagination numbers, only show prev/next */
+  /* Responsive: Make horizontal layouts stack on mobile */
+  /* ====================================
+   FILTER SIDEBAR
+   ==================================== */
+  /* Responsive: Stack filter on tablet and match pagination style */
+  /* Phone: Simplify filter further */
+  /* ====================================
+  READ MORE STYLES
+  ==================================== */
+  /* Responsive adjustments */
+}
+.turbo_blog_wl__inner {
+  position: relative;
+}
+.turbo_blog_wl__title {
+  margin-bottom: 30px;
+}
+.turbo_blog_wl__post-item {
+  margin-bottom: 20px;
+}
+.turbo_blog_wl__post-item-title {
+  font-size: 18px;
+}
+.turbo_blog_wl__post-meta--below {
+  margin-top: 20px;
+}
+.turbo_blog_wl__post-taxonomy {
+  margin-bottom: 15px;
+  font-size: 14px;
+  color: #666;
+}
+.turbo_blog_wl__post-author-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+}
+.turbo_blog_wl__post-author-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.turbo_blog_wl__post-author-details {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.turbo_blog_wl__post-author-name {
+  font-weight: bold;
+  font-size: 16px;
+}
+.turbo_blog_wl__post-date {
+  font-size: 14px;
+  color: #666;
+}
+.turbo_blog_wl__post-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.turbo_blog_wl__post-inner--left, .turbo_blog_wl__post-inner--right {
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 20px;
+}
+.turbo_blog_wl__post-inner--left .turbo_blog_wl__post-featured-image, .turbo_blog_wl__post-inner--right .turbo_blog_wl__post-featured-image {
+  flex: 0 0 45%; /* Fixed width at 45% */
+  max-width: 45%;
+}
+.turbo_blog_wl__post-inner--left .turbo_blog_wl__post-featured-image img, .turbo_blog_wl__post-inner--right .turbo_blog_wl__post-featured-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+.turbo_blog_wl__post-inner--left .turbo_blog_wl__post-content-wrapper, .turbo_blog_wl__post-inner--right .turbo_blog_wl__post-content-wrapper {
+  flex: 1 1 0;
+  min-width: 0; /* Prevent flex overflow */
+}
+.turbo_blog_wl__post-items--fullwidth {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+.turbo_blog_wl__post-items--grid {
+  display: grid;
+  /* grid-template-columns comes from styles.ts */
+  /* row-gap comes from styles.ts */
+  /* column-gap comes from styles.ts */
+}
+.turbo_blog_wl__post-items--grid .turbo_blog_wl__post-item {
+  display: flex;
+  flex-direction: column;
+}
+.turbo_blog_wl__post-item--full-width {
+  grid-column: 1/-1; /* Span all columns */
+}
+.turbo_blog_wl__post-featured-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.turbo_blog_wl__pagination {
+  margin-top: 2em;
+  padding: 2em 0;
+  border-top: 1px solid #000;
+  border-bottom: 1px solid #000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0;
+}
+.turbo_blog_wl__pagination-prev, .turbo_blog_wl__pagination-next {
+  color: #000;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-weight: bold;
+  transition: opacity 0.3s ease;
+  white-space: nowrap;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px 10px;
+}
+.turbo_blog_wl__pagination-prev:hover:not(.turbo_blog_wl__pagination-disabled), .turbo_blog_wl__pagination-next:hover:not(.turbo_blog_wl__pagination-disabled) {
+  opacity: 0.7;
+}
+.turbo_blog_wl__pagination-disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.turbo_blog_wl__pagination-numbers {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+.turbo_blog_wl__pagination-number {
+  color: #000;
+  text-decoration: none;
+  padding: 5px 10px;
+  transition: all 0.3s ease;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.turbo_blog_wl__pagination-number:hover:not(.turbo_blog_wl__pagination-current) {
+  opacity: 0.7;
+}
+.turbo_blog_wl__pagination-current {
+  font-weight: bold;
+  color: #000;
+}
+.turbo_blog_wl__pagination-number:not(.turbo_blog_wl__pagination-current) {
+  color: #999;
+}
+.turbo_blog_wl__pagination-ellipsis {
+  color: #999;
+  padding: 5px 10px;
+  user-select: none;
+  pointer-events: none;
+}
+@media only screen and (max-width: 980px) {
+  .turbo_blog_wl__pagination {
+    gap: 0;
+    padding: 1.5em 0;
+  }
+  .turbo_blog_wl__pagination-prev, .turbo_blog_wl__pagination-next {
+    font-size: 0.85em;
+    padding: 4px 8px;
+  }
+  .turbo_blog_wl__pagination-numbers {
+    gap: 0;
+  }
+  .turbo_blog_wl__pagination-number, .turbo_blog_wl__pagination-ellipsis {
+    font-size: 0.85em;
+    padding: 4px 8px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .turbo_blog_wl__pagination {
+    justify-content: space-between;
+    gap: 0;
+  }
+  .turbo_blog_wl__pagination-numbers {
+    display: none; /* Hide all page numbers on mobile */
+  }
+  .turbo_blog_wl__pagination-prev, .turbo_blog_wl__pagination-next {
+    font-size: 0.8em;
+    padding: 8px 12px;
+    flex: 1;
+    text-align: center;
+  }
+  .turbo_blog_wl__pagination-prev {
+    justify-content: flex-start;
+  }
+  .turbo_blog_wl__pagination-next {
+    justify-content: flex-end;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .turbo_blog_wl__post-inner--left, .turbo_blog_wl__post-inner--right {
+    flex-direction: column;
+  }
+  .turbo_blog_wl__post-inner--left .turbo_blog_wl__post-featured-image, .turbo_blog_wl__post-inner--right .turbo_blog_wl__post-featured-image {
+    flex: 1 1 auto;
+    max-width: 100%;
+  }
+}
+.turbo_blog_wl__content-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.turbo_blog_wl__content-wrapper--with-filter {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  align-items: flex-start;
+}
+.turbo_blog_wl__content-wrapper--filter-right {
+  flex-direction: row-reverse;
+}
+.turbo_blog_wl__filter {
+  flex: 0 0 250px;
+  position: sticky;
+  top: 20px;
+}
+.turbo_blog_wl__filter--left {
+  border-right: 1px solid #ddd;
+  padding-right: 30px;
+}
+.turbo_blog_wl__filter--right {
+  border-left: 1px solid #ddd;
+  padding-left: 30px;
+}
+.turbo_blog_wl__filter-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.turbo_blog_wl__filter-item {
+  text-align: left;
+  padding: 10px 15px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: capitalize;
+  text-decoration: none;
+  position: relative;
+  color: #999;
+  font-size: 16px;
+  display: block;
+  /* &:first-child {
+       color: #000;
+       font-weight: bold;
+       text-transform: none;
+   }*/
+}
+.turbo_blog_wl__filter-item:hover {
+  opacity: 0.7;
+}
+.turbo_blog_wl__filter-item--active {
+  color: #000 !important;
+  font-weight: bold;
+}
+.turbo_blog_wl__filter-item--active::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: #000;
+}
+.turbo_blog_wl__filter--left .turbo_blog_wl__filter-item--active::before {
+  right: -30px;
+}
+.turbo_blog_wl__filter--right .turbo_blog_wl__filter-item--active::before {
+  left: -30px;
+}
+.turbo_blog_wl__posts-wrapper {
+  flex: 1;
+  min-width: 0;
+}
+@media only screen and (max-width: 980px) {
+  .turbo_blog_wl__content-wrapper--with-filter {
+    flex-direction: column;
+    gap: 0;
+  }
+  .turbo_blog_wl__filter {
+    flex: 1 1 auto;
+    width: 100%;
+    position: relative;
+    border: none !important;
+    padding: 0 0 2em 0 !important;
+    border-bottom: 1px solid #000 !important;
+    margin-bottom: 2em;
+  }
+  .turbo_blog_wl__filter-inner {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0;
+    justify-content: center;
+  }
+  .turbo_blog_wl__filter-item {
+    padding: 8px 12px;
+    background: none;
+    border: none;
+    text-align: center;
+    font-size: 0.85em;
+  }
+  .turbo_blog_wl__filter-item:first-child {
+    text-transform: uppercase;
+  }
+  .turbo_blog_wl__filter-item--active {
+    background: none;
+    text-decoration: underline;
+  }
+  .turbo_blog_wl__filter-item--active::before {
+    display: none;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .turbo_blog_wl__filter {
+    padding: 0 0 1.5em 0 !important;
+    margin-bottom: 1.5em;
+  }
+  .turbo_blog_wl__filter-inner {
+    gap: 0;
+  }
+  .turbo_blog_wl__filter-item {
+    padding: 6px 10px;
+    font-size: 0.8em;
+  }
+}
+.turbo_blog_wl__post-item-title {
+  position: relative;
+}
+.turbo_blog_wl__post-item-title a {
+  display: block;
+  position: relative;
+  padding-right: 30px;
+}
+.turbo_blog_wl__read-more-arrow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ff0000;
+  transition: transform 0.3s ease;
+  line-height: 1;
+}
+.turbo_blog_wl__read-more-arrow svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+a:hover .turbo_blog_wl__read-more-arrow {
+  transform: translate(3px, -3px);
+}
+.turbo_blog_wl__post-inner--right .turbo_blog_wl__read-more-arrow {
+  right: auto;
+  left: 0;
+}
+.turbo_blog_wl__post-inner--right .turbo_blog_wl__post-item-title a {
+  padding-right: 0;
+  padding-left: 30px;
+}
+.turbo_blog_wl__read-more-link {
+  display: inline-block;
+  margin-top: 15px;
+  color: #000;
+  text-decoration: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 14px;
+  transition: opacity 0.3s ease;
+}
+.turbo_blog_wl__read-more-link:hover {
+  opacity: 0.7;
+}
+.turbo_blog_wl__read-more-link::after {
+  content: " →";
+  margin-left: 5px;
+}
+@media only screen and (max-width: 767px) {
+  .turbo_blog_wl__post-item-title a {
+    padding-right: 28px;
+  }
+  .turbo_blog_wl__post-inner--right .turbo_blog_wl__post-item-title a {
+    padding-right: 0;
+    padding-left: 28px;
+  }
+  .turbo_blog_wl__read-more-arrow svg {
+    width: 18px;
+    height: 18px;
+  }
+  .turbo_blog_wl__read-more-link {
+    font-size: 12px;
+  }
+}
+/*!********************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./src/components/dynamic-module/module.scss ***!
+  \********************************************************************************************************************************************************************************************/
+.example_dynamic_module {
+  padding: 50px;
+  background-color: #f5f5f5;
+}
+.example_dynamic_module__inner {
+  position: relative;
+}
+.example_dynamic_module__title {
+  margin-bottom: 30px;
+}
+.example_dynamic_module__post-item {
+  margin-bottom: 20px;
+}
+.example_dynamic_module__post-item-title {
+  font-size: 18px;
+}
+/*!*******************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./src/components/parent-module/module.scss ***!
+  \*******************************************************************************************************************************************************************************************/
+.entry-content ul.example_parent_module {
+  list-style: none;
+}
+/*!*******************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./src/components/static-module/module.scss ***!
+  \*******************************************************************************************************************************************************************************************/
+.example_static_module {
+  padding: 30px;
+  background-color: #ecf4f7;
+}
+.example_static_module__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  position: relative;
+}
+.example_static_module__image {
+  flex: 0 0 50%;
+  max-width: 50%;
+  padding-right: 20px;
+}
+.example_static_module__content-container {
+  flex: 0 0 50%;
+  max-width: 50%;
+  padding-left: 20px;
+}
+.example_static_module__summary {
+  margin: 10px 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #666;
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 4px;
+  border-left: 3px solid #007cba;
+}
