@@ -73,6 +73,39 @@ trait RenderCallbackTrait {
 	}
 
 	/**
+	 * Clean and validate comma-separated IDs
+	 * Removes duplicates, trailing commas, invalid IDs
+	 *
+	 * @since ??
+	 *
+	 * @param string $ids_string Comma-separated string of IDs.
+	 *
+	 * @return string Cleaned comma-separated string of valid IDs.
+	 */
+	private static function clean_and_validate_ids( $ids_string ) {
+		if ( empty( $ids_string ) ) {
+			return '';
+		}
+		
+		// Cast to string in case it's an integer
+		$ids_string = (string) $ids_string;
+		
+		// Split by comma, trim each part
+		$ids = array_map( 'trim', explode( ',', $ids_string ) );
+		
+		// Filter out empty strings and non-numeric values
+		$ids = array_filter( $ids, function( $id ) {
+			return ! empty( $id ) && ctype_digit( $id );
+		});
+		
+		// Remove duplicates
+		$ids = array_unique( $ids );
+		
+		// Return comma-separated string or empty
+		return ! empty( $ids ) ? implode( ',', $ids ) : '';
+	}
+
+	/**
 	 * Generate custom excerpt from post content
 	 *
 	 * @since ??
@@ -232,45 +265,45 @@ trait RenderCallbackTrait {
 		return trim( $combined );
 	}
 
-/**
- * Recursively extract text from nested arrays (for Divi block attributes)
- *
- * @since ??
- *
- * @param array $data          Array to search.
- * @param array &$text_content Reference to text content array.
- *
- * @return void
- */
-private static function extract_text_from_array( $data, &$text_content ) {
-    if ( ! is_array( $data ) ) {
-        return;
-    }
-    
-    foreach ( $data as $key => $value ) {
-        if ( is_string( $value ) ) {
-            // Check if this looks like content (not a setting)
-            if ( strlen( $value ) > 10 && strip_tags( $value ) !== '' ) {
-                // Skip if it's likely a URL, class name, or setting
-                if ( strpos( $value, 'http' ) === 0 || 
-                     strpos( $value, 'class' ) === 0 || 
-                     strpos( $value, '#' ) === 0 ||
-                     preg_match( '/^[\d\s\w-]+$/', $value ) ) {
-                    continue;
-                }
-                
-                $text = wp_strip_all_tags( $value );
-                $text = trim( $text );
-                if ( ! empty( $text ) && strlen( $text ) > 10 ) {
-                    $text_content[] = $text;
-                }
-            }
-        } elseif ( is_array( $value ) ) {
-            // Recursively search nested arrays
-            self::extract_text_from_array( $value, $text_content );
-        }
-    }
-}
+	/**
+	 * Recursively extract text from nested arrays (for Divi block attributes)
+	 *
+	 * @since ??
+	 *
+	 * @param array $data          Array to search.
+	 * @param array &$text_content Reference to text content array.
+	 *
+	 * @return void
+	 */
+	private static function extract_text_from_array( $data, &$text_content ) {
+		if ( ! is_array( $data ) ) {
+			return;
+		}
+		
+		foreach ( $data as $key => $value ) {
+			if ( is_string( $value ) ) {
+				// Check if this looks like content (not a setting)
+				if ( strlen( $value ) > 10 && strip_tags( $value ) !== '' ) {
+					// Skip if it's likely a URL, class name, or setting
+					if ( strpos( $value, 'http' ) === 0 || 
+						 strpos( $value, 'class' ) === 0 || 
+						 strpos( $value, '#' ) === 0 ||
+						 preg_match( '/^[\d\s\w-]+$/', $value ) ) {
+						continue;
+					}
+					
+					$text = wp_strip_all_tags( $value );
+					$text = trim( $text );
+					if ( ! empty( $text ) && strlen( $text ) > 10 ) {
+						$text_content[] = $text;
+					}
+				}
+			} elseif ( is_array( $value ) ) {
+				// Recursively search nested arrays
+				self::extract_text_from_array( $value, $text_content );
+			}
+		}
+	}
 
 	/**
 	 * Dynamic module render callback which outputs server side rendered HTML on the Front-End.
@@ -285,11 +318,12 @@ private static function extract_text_from_array( $data, &$text_content ) {
 	 * @return string HTML rendered of Dynamic module.
 	 */
 	public static function render_callback( $attrs, $content, $block, $elements ) {
+
 		$post_heading_level  = $attrs['postTitle']['decoration']['font']['font']['desktop']['value']['headingLevel'];
 		$posts_per_page      = $attrs['postItems']['innerContent']['desktop']['value']['postsNumber'];
 		$post_type           = $attrs['postType']['innerContent']['desktop']['value']['postType'] ?? 'post';
-		$categories          = $attrs['categories']['innerContent']['desktop']['value']['categories'] ?? '';
-		$tags                = $attrs['tags']['innerContent']['desktop']['value']['tags'] ?? '';
+		$categories = $attrs['categories']['innerContent']['desktop']['value'] ?? '';
+		$tags = $attrs['tags']['innerContent']['desktop']['value'] ?? '';
 		
 		// Show/Hide settings
 		$show_featured_image = $attrs['showFeaturedImage']['innerContent']['desktop']['value'] ?? 'on';
@@ -307,7 +341,6 @@ private static function extract_text_from_array( $data, &$text_content ) {
 		$filter_type    = $attrs['filterType']['innerContent']['desktop']['value'] ?? 'categories';
 		$filter_position = $attrs['filterPosition']['innerContent']['desktop']['value'] ?? 'left';
 		
-	
 		$alternate_image_position = ( $attrs['alternateImagePosition']['innerContent']['desktop']['value'] ?? 'off' ) === 'on';
 		$first_post_full_width    = ( $attrs['firstPostFullWidth']['innerContent']['desktop']['value'] ?? 'off' ) === 'on';
 		$first_post_show_image = ( $attrs['firstPostShowImage']['innerContent']['desktop']['value'] ?? 'on' ) === 'on';
@@ -318,10 +351,18 @@ private static function extract_text_from_array( $data, &$text_content ) {
 		$read_more_style = $attrs['readMoreStyle']['innerContent']['desktop']['value'] ?? 'arrow';
 		$read_more_text  = $attrs['readMoreText']['innerContent']['desktop']['value'] ?? 'Read More';
 
-		// Get current page and filter from URL parameters
-		$current_page   = max( 1, absint( $_GET['turbo_page'] ?? 1 ) );
-		$selected_filter = sanitize_text_field( $_GET['turbo_filter'] ?? 'all' );
+		// Get current page, filter, and meta filter from URL parameters
+		$current_page     = max( 1, absint( $_GET['turbo_page'] ?? 1 ) );
+		$selected_filter  = sanitize_text_field( $_GET['turbo_filter'] ?? 'all' );
+		$meta_filter_id   = sanitize_text_field( $_GET['turbo_meta_filter'] ?? '' );
+		$meta_filter_type = sanitize_text_field( $_GET['turbo_meta_type'] ?? '' );
+		$meta_filter_name = sanitize_text_field( $_GET['turbo_meta_name'] ?? '' );
 
+		// Clean and validate category/tag IDs
+		$clean_categories = self::clean_and_validate_ids( $categories );
+		$clean_tags = self::clean_and_validate_ids( $tags );
+
+		
 		$background_component = ElementComponents::component(
 			[
 				'attrs'         => $attrs['module']['decoration'] ?? [],
@@ -333,6 +374,7 @@ private static function extract_text_from_array( $data, &$text_content ) {
 			]
 		);
 
+		
 		// Build query args for counting total posts
 		$count_args = [
 			'post_type'      => $post_type,
@@ -341,22 +383,34 @@ private static function extract_text_from_array( $data, &$text_content ) {
 			'orderby'        => 'date',
 		];
 
-		// Handle filter selection or manual filters
-		if ( $show_filter && $selected_filter !== 'all' ) {
-			// Use filter selection
-			if ( $filter_type === 'categories' ) {
-				$count_args['category__in'] = [ absint( $selected_filter ) ];
-			} else {
-				$count_args['tag__in'] = [ absint( $selected_filter ) ];
+		// Handle meta filter (clicked from post meta)
+		if ( ! empty( $meta_filter_id ) && ! empty( $meta_filter_type ) ) {
+			if ( $meta_filter_type === 'category' ) {
+				$count_args['category__in'] = [ absint( $meta_filter_id ) ];
+			} elseif ( $meta_filter_type === 'tag' ) {
+				$count_args['tag__in'] = [ absint( $meta_filter_id ) ];
+			}
+			
+			// Still apply the original restrictions as additional filters
+			if ( $meta_filter_type === 'tag' && ! empty( $clean_categories ) ) {
+				$count_args['category__in'] = array_map( 'intval', explode( ',', $clean_categories ) );
+			} elseif ( $meta_filter_type === 'category' && ! empty( $clean_tags ) ) {
+				$count_args['tag__in'] = array_map( 'intval', explode( ',', $clean_tags ) );
+			}
+		} elseif ( $show_filter && $selected_filter !== 'all' ) {
+			// A specific category filter is selected from nav
+			$count_args['category__in'] = [ absint( $selected_filter ) ];
+			// Still apply tag restrictions in background
+			if ( ! empty( $clean_tags ) ) {
+				$count_args['tag__in'] = array_map( 'intval', explode( ',', $clean_tags ) );
 			}
 		} else {
-			// Use manual filters
-			if ( ! empty( $categories ) ) {
-				$count_args['category__in'] = array_map( 'intval', explode( ',', $categories ) );
+			// "View All" is selected - apply field category restrictions if any
+			if ( ! empty( $clean_categories ) ) {
+				$count_args['category__in'] = array_map( 'intval', explode( ',', $clean_categories ) );
 			}
-
-			if ( ! empty( $tags ) ) {
-				$count_args['tag__in'] = array_map( 'intval', explode( ',', $tags ) );
+			if ( ! empty( $clean_tags ) ) {
+				$count_args['tag__in'] = array_map( 'intval', explode( ',', $clean_tags ) );
 			}
 		}
 
@@ -364,7 +418,7 @@ private static function extract_text_from_array( $data, &$text_content ) {
 		$total_posts = count( get_posts( $count_args ) );
 		$total_pages = ceil( $total_posts / $posts_per_page );
 
-		// Build query args for current page
+		// Build query args for current page (same logic as count)
 		$query_args = [
 			'post_type'      => $post_type,
 			'posts_per_page' => $posts_per_page,
@@ -373,20 +427,30 @@ private static function extract_text_from_array( $data, &$text_content ) {
 			'orderby'        => 'date',
 		];
 
-		// Apply same filter logic for query args
-		if ( $show_filter && $selected_filter !== 'all' ) {
-			if ( $filter_type === 'categories' ) {
-				$query_args['category__in'] = [ absint( $selected_filter ) ];
-			} else {
-				$query_args['tag__in'] = [ absint( $selected_filter ) ];
+		// Apply same filter logic
+		if ( ! empty( $meta_filter_id ) && ! empty( $meta_filter_type ) ) {
+			if ( $meta_filter_type === 'category' ) {
+				$query_args['category__in'] = [ absint( $meta_filter_id ) ];
+			} elseif ( $meta_filter_type === 'tag' ) {
+				$query_args['tag__in'] = [ absint( $meta_filter_id ) ];
+			}
+			
+			if ( $meta_filter_type === 'tag' && ! empty( $clean_categories ) ) {
+				$query_args['category__in'] = array_map( 'intval', explode( ',', $clean_categories ) );
+			} elseif ( $meta_filter_type === 'category' && ! empty( $clean_tags ) ) {
+				$query_args['tag__in'] = array_map( 'intval', explode( ',', $clean_tags ) );
+			}
+		} elseif ( $show_filter && $selected_filter !== 'all' ) {
+			$query_args['category__in'] = [ absint( $selected_filter ) ];
+			if ( ! empty( $clean_tags ) ) {
+				$query_args['tag__in'] = array_map( 'intval', explode( ',', $clean_tags ) );
 			}
 		} else {
-			if ( ! empty( $categories ) ) {
-				$query_args['category__in'] = array_map( 'intval', explode( ',', $categories ) );
+			if ( ! empty( $clean_categories ) ) {
+				$query_args['category__in'] = array_map( 'intval', explode( ',', $clean_categories ) );
 			}
-
-			if ( ! empty( $tags ) ) {
-				$query_args['tag__in'] = array_map( 'intval', explode( ',', $tags ) );
+			if ( ! empty( $clean_tags ) ) {
+				$query_args['tag__in'] = array_map( 'intval', explode( ',', $clean_tags ) );
 			}
 		}
 
@@ -513,8 +577,31 @@ private static function extract_text_from_array( $data, &$text_content ) {
 					}
 					
 					if ( $show_categories === 'on' && $post_type === 'post' ) {
-						$categories_list = get_the_category_list( ', ', '', $post->ID );
-						if ( $categories_list ) {
+						// Get all categories for this post
+						$post_categories = get_the_category( $post->ID );
+						
+						// Filter to only specified categories if any
+						if ( ! empty( $clean_categories ) ) {
+							$specified_cat_ids = array_map( 'intval', explode( ',', $clean_categories ) );
+							$post_categories = array_filter( $post_categories, function( $cat ) use ( $specified_cat_ids ) {
+								return in_array( $cat->term_id, $specified_cat_ids );
+							});
+						}
+						
+						if ( ! empty( $post_categories ) ) {
+							$cat_links = [];
+							$base_url = remove_query_arg( [ 'turbo_filter', 'turbo_page', 'turbo_meta_filter', 'turbo_meta_type', 'turbo_meta_name' ] );
+							
+							foreach ( $post_categories as $cat ) {
+								$cat_url = add_query_arg( [
+									'turbo_meta_filter' => $cat->term_id,
+									'turbo_meta_type'   => 'category',
+									'turbo_meta_name'   => urlencode( $cat->name ),
+								], $base_url );
+								
+								$cat_links[] = '<a href="' . esc_url( $cat_url ) . '" style="text-decoration: underline;">' . esc_html( $cat->name ) . '</a>';
+							}
+							
 							$post_meta_parts[] = HTMLUtility::render(
 								[
 									'tag'               => 'span',
@@ -522,15 +609,30 @@ private static function extract_text_from_array( $data, &$text_content ) {
 										'class' => 'turbo_blog_wl__post-categories',
 									],
 									'childrenSanitizer' => 'et_core_esc_previously',
-									'children'          => __( 'Categories:', 'd5-extension-example-modules' ) . ' ' . $categories_list,
+									'children'          => __( 'Categories:', 'd5-extension-example-modules' ) . ' ' . implode( ', ', $cat_links ),
 								]
 							);
 						}
 					}
 					
 					if ( $show_tags === 'on' && $post_type === 'post' ) {
-						$tags_list = get_the_tag_list( '', ', ', '', $post->ID );
-						if ( $tags_list ) {
+						// Get all tags for this post - tags are always shown in full
+						$post_tags = get_the_tags( $post->ID );
+						
+						if ( ! empty( $post_tags ) ) {
+							$tag_links = [];
+							$base_url = remove_query_arg( [ 'turbo_filter', 'turbo_page', 'turbo_meta_filter', 'turbo_meta_type', 'turbo_meta_name' ] );
+							
+							foreach ( $post_tags as $tag ) {
+								$tag_url = add_query_arg( [
+									'turbo_meta_filter' => $tag->term_id,
+									'turbo_meta_type'   => 'tag',
+									'turbo_meta_name'   => urlencode( $tag->name ),
+								], $base_url );
+								
+								$tag_links[] = '<a href="' . esc_url( $tag_url ) . '" style="text-decoration: underline;">' . esc_html( $tag->name ) . '</a>';
+							}
+							
 							$post_meta_parts[] = HTMLUtility::render(
 								[
 									'tag'               => 'span',
@@ -538,7 +640,7 @@ private static function extract_text_from_array( $data, &$text_content ) {
 										'class' => 'turbo_blog_wl__post-tags',
 									],
 									'childrenSanitizer' => 'et_core_esc_previously',
-									'children'          => __( 'Tags:', 'd5-extension-example-modules' ) . ' ' . $tags_list,
+									'children'          => __( 'Tags:', 'd5-extension-example-modules' ) . ' ' . implode( ', ', $tag_links ),
 								]
 							);
 						}
@@ -594,31 +696,56 @@ private static function extract_text_from_array( $data, &$text_content ) {
 					$taxonomy_parts = [];
 					
 					if ( $show_categories === 'on' && $post_type === 'post' ) {
-						$categories = get_the_category( $post->ID );
-						if ( ! empty( $categories ) ) {
-							$cat_names        = array_map(
-								function ( $cat ) {
-									return $cat->name;
-								},
-								$categories
-							);
-							$taxonomy_parts[] = implode( ', ', $cat_names );
+						$post_categories = get_the_category( $post->ID );
+						
+						// Filter to only specified categories if any
+						if ( ! empty( $clean_categories ) ) {
+							$specified_cat_ids = array_map( 'intval', explode( ',', $clean_categories ) );
+							$post_categories = array_filter( $post_categories, function( $cat ) use ( $specified_cat_ids ) {
+								return in_array( $cat->term_id, $specified_cat_ids );
+							});
+						}
+						
+						if ( ! empty( $post_categories ) ) {
+							$cat_links = [];
+							$base_url = remove_query_arg( [ 'turbo_filter', 'turbo_page', 'turbo_meta_filter', 'turbo_meta_type', 'turbo_meta_name' ] );
+							
+							foreach ( $post_categories as $cat ) {
+								$cat_url = add_query_arg( [
+									'turbo_meta_filter' => $cat->term_id,
+									'turbo_meta_type'   => 'category',
+									'turbo_meta_name'   => urlencode( $cat->name ),
+								], $base_url );
+								
+								$cat_links[] = '<a href="' . esc_url( $cat_url ) . '" style="text-decoration: underline;">' . esc_html( $cat->name ) . '</a>';
+							}
+							
+							$taxonomy_parts[] = implode( ', ', $cat_links );
 						}
 					}
-					
+
 					if ( $show_tags === 'on' && $post_type === 'post' ) {
-						$tags = get_the_tags( $post->ID );
-						if ( ! empty( $tags ) ) {
-							$tag_names = array_map(
-								function ( $tag ) {
-									return $tag->name;
-								},
-								$tags
-							);
+						$post_tags = get_the_tags( $post->ID );
+						
+						// Tags are always shown in full (not filtered) since they work in background
+						if ( ! empty( $post_tags ) ) {
+							$tag_links = [];
+							$base_url = remove_query_arg( [ 'turbo_filter', 'turbo_page', 'turbo_meta_filter', 'turbo_meta_type', 'turbo_meta_name' ] );
+							
+							foreach ( $post_tags as $tag ) {
+								$tag_url = add_query_arg( [
+									'turbo_meta_filter' => $tag->term_id,
+									'turbo_meta_type'   => 'tag',
+									'turbo_meta_name'   => urlencode( $tag->name ),
+								], $base_url );
+								
+								$tag_links[] = '<a href="' . esc_url( $tag_url ) . '" style="text-decoration: underline;">' . esc_html( $tag->name ) . '</a>';
+							}
+							
 							if ( ! empty( $taxonomy_parts ) ) {
 								$taxonomy_parts[] = ' | ';
 							}
-							$taxonomy_parts[] = implode( ', ', $tag_names );
+							$taxonomy_parts[] = implode( ', ', $tag_links );
 						}
 					}
 					
@@ -629,7 +756,7 @@ private static function extract_text_from_array( $data, &$text_content ) {
 								'attributes'        => [
 									'class' => 'turbo_blog_wl__post-taxonomy',
 								],
-								'childrenSanitizer' => 'esc_html',
+								'childrenSanitizer' => 'et_core_esc_previously',
 								'children'          => implode( '', $taxonomy_parts ),
 							]
 						);
@@ -793,26 +920,66 @@ private static function extract_text_from_array( $data, &$text_content ) {
 		// Build filter HTML
 		$filter_html = '';
 		if ( $show_filter && $post_type === 'post' ) {
-			// Get current URL without turbo_filter and turbo_page parameters
-			$base_url = remove_query_arg( [ 'turbo_filter', 'turbo_page' ] );
+			// Get current URL without filter parameters
+			$base_url = remove_query_arg( [ 'turbo_filter', 'turbo_page', 'turbo_meta_filter', 'turbo_meta_type', 'turbo_meta_name' ] );
 			
-			// Get terms based on filter type
-			$taxonomy = $filter_type === 'categories' ? 'category' : 'post_tag';
-			$terms = get_terms(
-				[
-					'taxonomy'   => $taxonomy,
-					'hide_empty' => true,
+			$terms = [];
+			
+			// If categories are specified in field, use only those
+			if ( ! empty( $clean_categories ) ) {
+				$category_ids = array_map( 'intval', explode( ',', $clean_categories ) );
+				
+				$terms = get_terms([
+					'taxonomy'   => 'category',
+					'include'    => $category_ids,
+					'hide_empty' => false, // Show even if no posts match (with tag filter)
 					'orderby'    => 'name',
 					'order'      => 'ASC',
-				]
-			);
+				]);
+			} else {
+				// No categories specified - get all categories from posts matching tag filter
+				$filter_post_args = [
+					'post_type'      => $post_type,
+					'posts_per_page' => -1,
+					'fields'         => 'ids',
+				];
+				
+				// Apply tag filter if specified
+				if ( ! empty( $clean_tags ) ) {
+					$filter_post_args['tag__in'] = array_map( 'intval', explode( ',', $clean_tags ) );
+				}
+				
+				// Get post IDs that match the tag filter
+				$filtered_post_ids = get_posts( $filter_post_args );
+				
+				// Get categories from those posts
+				$category_ids = [];
+				if ( ! empty( $filtered_post_ids ) ) {
+					foreach ( $filtered_post_ids as $post_id ) {
+						$post_categories = wp_get_post_categories( $post_id );
+						$category_ids = array_merge( $category_ids, $post_categories );
+					}
+					$category_ids = array_unique( $category_ids );
+				}
+				
+				// Get the actual category objects
+				if ( ! empty( $category_ids ) ) {
+					$terms = get_terms([
+						'taxonomy'   => 'category',
+						'include'    => $category_ids,
+						'hide_empty' => true,
+						'orderby'    => 'name',
+						'order'      => 'ASC',
+					]);
+				}
+			}
 			
 			if ( ! is_wp_error( $terms ) && ! empty( $terms ) ) {
 				$filter_items = [];
 				
 				// View All button
 				$view_all_class = 'turbo_blog_wl__filter-item';
-				if ( $selected_filter === 'all' ) {
+				if ( $selected_filter === 'all' && empty( $meta_filter_id ) ) {
 					$view_all_class .= ' turbo_blog_wl__filter-item--active';
 				}
 				
@@ -824,16 +991,15 @@ private static function extract_text_from_array( $data, &$text_content ) {
 							'class' => $view_all_class,
 						],
 						'childrenSanitizer' => 'esc_html',
-						'children'          => 'View all',
+						'children'          => __( 'View All', 'd5-extension-example-modules' ),
 					]
 				);
 				
 				// Term buttons
 				foreach ( $terms as $term ) {
 					$term_class = 'turbo_blog_wl__filter-item';
-					if ( $selected_filter === (string) $term->term_id ) {
+					if ( $selected_filter === (string) $term->term_id && empty( $meta_filter_id ) ) {
 						$term_class .= ' turbo_blog_wl__filter-item--active';
-						$term_attributes['aria-current'] = 'true';
 					}
 					
 					$term_url     = add_query_arg( 'turbo_filter', $term->term_id, $base_url );
@@ -867,9 +1033,7 @@ private static function extract_text_from_array( $data, &$text_content ) {
 						'attributes'        => [
 							'class'      => 'turbo_blog_wl__filter turbo_blog_wl__filter--' . $filter_position,
 							'role'       => 'navigation',
-							'aria-label' => $filter_type === 'categories'
-								? __( 'Filter posts by category', 'd5-extension-example-modules' )
-								: __( 'Filter posts by tag', 'd5-extension-example-modules' ),
+							'aria-label' => __( 'Filter posts by category', 'd5-extension-example-modules' ),
 						],
 						'childrenSanitizer' => 'et_core_esc_previously',
 						'children'          => $filter_inner,
@@ -883,7 +1047,7 @@ private static function extract_text_from_array( $data, &$text_content ) {
 		if ( $show_pagination === 'on' && $total_pages > 1 ) {
 			$pagination_items = [];
 			
-			// Get current URL - preserve filter parameter
+			// Get current URL - preserve filter parameters
 			$current_url = remove_query_arg( 'turbo_page' );
 			
 			// Previous button
@@ -1008,6 +1172,47 @@ private static function extract_text_from_array( $data, &$text_content ) {
 			);
 		}
 
+		// Meta filter indicator banner
+		$meta_filter_banner = '';
+		if ( ! empty( $meta_filter_id ) && ! empty( $meta_filter_type ) && ! empty( $meta_filter_name ) ) {
+			$clear_url = remove_query_arg( [ 'turbo_meta_filter', 'turbo_meta_type', 'turbo_meta_name', 'turbo_page' ] );
+			
+			$filter_type_text = $meta_filter_type === 'category' 
+				? __( 'category', 'd5-extension-example-modules' )
+				: __( 'tag', 'd5-extension-example-modules' );
+			
+			$meta_filter_banner = HTMLUtility::render(
+				[
+					'tag'               => 'div',
+					'attributes'        => [
+						'style' => 'padding: 10px 15px; background: #f0f0f0; border: 1px solid #ddd; border-radius: 4px; margin: 10px 0; display: flex; justify-content: space-between; align-items: center;',
+					],
+					'childrenSanitizer' => 'et_core_esc_previously',
+					'children'          => [
+						HTMLUtility::render([
+							'tag'               => 'span',
+							'childrenSanitizer' => 'et_core_esc_previously',
+							'children'          => sprintf(
+								'%s %s: <strong>%s</strong>',
+								__( 'Filtering by', 'd5-extension-example-modules' ),
+								$filter_type_text,
+								esc_html( urldecode( $meta_filter_name ) )
+							),
+						]),
+						HTMLUtility::render([
+							'tag'               => 'a',
+							'attributes'        => [
+								'href'  => esc_url( $clear_url ),
+								'style' => 'background: #333; color: #fff; border: none; padding: 5px 10px; border-radius: 3px; text-decoration: none;',
+							],
+							'childrenSanitizer' => 'esc_html',
+							'children'          => __( 'Clear Filter', 'd5-extension-example-modules' ),
+						]),
+					],
+				]
+			);
+		}
+
 		// Title
 		$title = $elements->render(
 			[
@@ -1032,11 +1237,33 @@ private static function extract_text_from_array( $data, &$text_content ) {
 				]
 			);
 		} else {
+			// No posts message with optional clear button
+			$no_posts_content = __( 'No posts found.', 'd5-extension-example-modules' );
+			
+			if ( ! empty( $meta_filter_id ) ) {
+				$clear_url = remove_query_arg( [ 'turbo_meta_filter', 'turbo_meta_type', 'turbo_meta_name', 'turbo_page' ] );
+				
+				$no_posts_content .= '<div style="margin-top: 10px;">' . 
+					HTMLUtility::render([
+						'tag'               => 'a',
+						'attributes'        => [
+							'href'  => esc_url( $clear_url ),
+							'style' => 'background: #0073aa; color: #fff; border: none; padding: 8px 16px; border-radius: 3px; cursor: pointer; font-size: 14px; text-decoration: none; display: inline-block;',
+						],
+						'childrenSanitizer' => 'esc_html',
+						'children'          => __( 'View All Posts', 'd5-extension-example-modules' ),
+					]) .
+				'</div>';
+			}
+			
 			$posts_container = HTMLUtility::render(
 				[
 					'tag'               => 'div',
-					'childrenSanitizer' => 'esc_html',
-					'children'          => __( 'No post found.', 'd5-extension-example-modules' ),
+					'attributes'        => [
+						'style' => 'padding: 20px; text-align: center;',
+					],
+					'childrenSanitizer' => 'et_core_esc_previously',
+					'children'          => $no_posts_content,
 				]
 			);
 		}
@@ -1112,6 +1339,7 @@ private static function extract_text_from_array( $data, &$text_content ) {
 							'childrenSanitizer' => 'et_core_esc_previously',
 							'children'          => [
 								$title,
+								$meta_filter_banner,
 								$content_wrapper,
 							],
 						]
