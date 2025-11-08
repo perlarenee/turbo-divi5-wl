@@ -19,15 +19,20 @@
 
         &-title {
             font-size: 1.5rem;
-            margin-bottom: 10px;
+            margin-bottom: 0.625rem;
         }
+    }
+
+    /* Add margin to title when image is above */
+    &__post-featured-image + &__post-content-wrapper &__post-item-title {
+        margin-top: 1.875rem; 
     }
 
     /* Meta styles - above content */
     &__post-meta--above {
         background: #f5f5f5;
-        padding: 10px 15px;
-        margin-bottom: 15px;
+        padding: 0.625rem 0.9375rem;
+        margin-bottom: 0.9375rem;
         font-size: .8rem;
         color: #666;
         
@@ -36,7 +41,7 @@
             
             &:not(:last-child)::after {
                 content: '|';
-                margin: 0 10px;
+                margin: 0 0.625rem;
                 color: #ccc;
             }
         }
@@ -53,24 +58,42 @@
     }
 
     &__post-meta--below {
-        margin-top: 20px;
+        margin-top: 1.875rem;
+        span {
+            display: inline-block;
+            
+            &:not(:last-child)::after {
+                content: '|';
+                margin: 0 0.625rem;
+                color: #ccc;
+            }
+        }
+        a {
+            color: #666;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            
+            &:hover {
+                color: #000;
+            }
+        }
     }
 
     &__post-taxonomy {
-        margin-bottom: 15px;
-        font-size: 14px;
+        margin-bottom: 1.5625rem;
+        font-size: 1rem;
         color: #666;
     }
 
     &__post-author-info {
         display: flex;
-        align-items: flex-start;
-        gap: 15px;
+        align-items: center; 
+        gap: 1.875rem;
     }
 
     &__post-author-avatar {
-        width: 60px;
-        height: 60px;
+        width: 3.75rem;
+        height: 3.75rem;
         border-radius: 50%;
         flex-shrink: 0;
     }
@@ -78,16 +101,16 @@
     &__post-author-details {
         display: flex;
         flex-direction: column;
-        gap: 5px;
+        gap: 0.3125rem;
     }
 
     &__post-author-name {
         font-weight: bold;
-        font-size: 16px;
+        font-size: 1rem;
     }
 
     &__post-date {
-        font-size: 14px;
+        font-size: 0.875rem;
         color: #666;
     }
 
@@ -99,7 +122,7 @@
     &__post-inner {
         display: flex;
         flex-direction: column;
-        gap: 15px;
+        gap: 0.9375rem;
     }
 
     /* Horizontal layouts (left/right) */
@@ -107,15 +130,11 @@
     &__post-inner--right {
         flex-direction: row;
         align-items: flex-start;
-        gap: 20px; // REMOVE THIS LINE - it's being set dynamically now
     }
 
     /* Featured image sizing for horizontal layouts */
     &__post-inner--left .turbo_blog_wl__post-featured-image,
     &__post-inner--right .turbo_blog_wl__post-featured-image {
-        // REMOVE OR COMMENT OUT THESE LINES - they conflict with dynamic sizing
-        // flex: 0 0 45%; /* Fixed width at 45% */
-        // max-width: 45%;
         
         img {
             width: 100%;
@@ -133,7 +152,7 @@
     &__post-items--fullwidth {
         display: flex;
         flex-direction: column;
-        gap: 30px;
+        gap: 1.875rem;
     }
 
     /* Grid layout - styles.ts handles columns/gaps dynamically */
@@ -171,10 +190,10 @@
    ==================================== */
 
     &__pagination {
-        margin-top: 2em;
-        padding: 2em 0;
-        border-top: 1px solid #000;
-        border-bottom: 1px solid #000;
+        margin-top: 1.875rem;
+        padding: 1.875rem 0;
+        border-top: 1px solid #ddd;
+        border-bottom: 1px solid #ddd;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -192,7 +211,7 @@
         background: none;
         border: none;
         cursor: pointer;
-        padding: 5px 10px;
+        padding: 0.3125rem 0.625rem;
         
         &:hover:not(.turbo_blog_wl__pagination-disabled) {
             opacity: 0.7;
@@ -207,7 +226,7 @@
 
     &__pagination-numbers {
         display: flex;
-        gap: 5px;
+        gap: 0.3125rem;
         align-items: center;
         justify-content: center;
         flex: 1;
@@ -216,7 +235,7 @@
     &__pagination-number {
         color: #000;
         text-decoration: none;
-        padding: 5px 10px;
+        padding: 0.3125rem 0.625rem;
         transition: all 0.3s ease;
         background: none;
         border: none;
@@ -233,12 +252,12 @@
     }
 
     &__pagination-number:not(.turbo_blog_wl__pagination-current) {
-        color: #999;
+        color: #ddd;
     }
 
     &__pagination-ellipsis {
-        color: #999;
-        padding: 5px 10px;
+        color: #ddd;
+        padding: 0.3125rem 0.625rem;
         user-select: none;
         pointer-events: none;
     }
@@ -253,7 +272,7 @@
         &__pagination-prev,
         &__pagination-next {
             font-size: 0.85em;
-            padding: 4px 8px;
+            padding: 0.25rem 0.5rem;
         }
         
         &__pagination-numbers {
@@ -263,7 +282,7 @@
         &__pagination-number,
         &__pagination-ellipsis {
             font-size: 0.85em;
-            padding: 4px 8px;
+            padding: 0.25rem 0.5rem;
         }
     }
 
@@ -281,7 +300,7 @@
         &__pagination-prev,
         &__pagination-next {
             font-size: 0.8em;
-            padding: 8px 12px;
+            padding: 0.5rem 0.75rem;
             flex: 1;
             text-align: center;
         }
@@ -321,7 +340,7 @@
 &__content-wrapper--with-filter {
     display: flex;
     flex-direction: row;
-    gap: 30px;
+    gap: 1.875rem;
     align-items: flex-start;
 }
 
@@ -330,30 +349,30 @@
 }
 
 &__filter {
-    flex: 0 0 250px;
+    flex: 0 0 15.625rem;
     position: sticky;
-    top: 20px;
+    top: 1.25rem;
 }
 
 &__filter--left {
     border-right: 1px solid #ddd;
-    padding-right: 30px;
+    padding-right: 1.875rem;
 }
 
 &__filter--right {
     border-left: 1px solid #ddd;
-    padding-left: 30px;
+    padding-left: 1.875rem;
 }
 
 &__filter-inner {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 0.625rem;
 }
 
 &__filter-item {
     text-align: left;
-    padding: 10px 15px;
+    padding: 0.625rem 0.9375rem;
     border: none;
     background: none;
     cursor: pointer;
@@ -362,7 +381,7 @@
     text-decoration: none;
     position: relative;
     color: #999;
-    font-size: 16px;
+    font-size: 1rem;
     display: block;
     
    /* &:first-child {
@@ -385,18 +404,18 @@
         position: absolute;
         top: 0;
         bottom: 0;
-        width: 3px;
+        width: 0.1875rem;
         background: #000;
     }
 }
 
 // Active border position based on filter position
 &__filter--left &__filter-item--active::before {
-    right: -30px;
+    right: -1.875rem;
 }
 
 &__filter--right &__filter-item--active::before {
-    left: -30px;
+    left: -1.875rem;
 }
 
 &__posts-wrapper {
@@ -429,7 +448,7 @@
     }
     
     &__filter-item {
-        padding: 8px 12px;
+        padding: 0.5rem 0.75rem;
         background: none;
         border: none;
         text-align: center;
@@ -462,7 +481,7 @@
     }
     
     &__filter-item {
-        padding: 6px 10px;
+        padding: 0.375rem 0.625rem;
         font-size: 0.8em;
     }
 }
@@ -478,7 +497,7 @@
         a {
             display: block;
             position: relative;
-            padding-right: 30px; // Small space to prevent overlap on very short titles
+            padding-right: 1.875rem; // Small space to prevent overlap on very short titles
         }
     }
 
@@ -494,14 +513,14 @@
         line-height: 1;
         
         svg {
-            width: 20px;
-            height: 20px;
+            width: 1.25rem;
+            height: 1.25rem;
             display: block;
         }
         
         // Hover effect - moves diagonally
         a:hover & {
-            transform: translate(3px, -3px);
+            transform: translate(0.1875rem, -0.1875rem);
         }
     }
 
@@ -514,19 +533,19 @@
         
         .turbo_blog_wl__post-item-title a {
             padding-right: 0;
-            padding-left: 30px;
+            padding-left: 1.875rem;
         }
     }
 
     // Link Style
     &__read-more-link {
         display: inline-block;
-        margin-top: 15px;
+        margin-top: 0.9375rem;
         color: #000;
         text-decoration: none;
         font-weight: bold;
         text-transform: uppercase;
-        font-size: 14px;
+        font-size: 0.875rem;
         transition: opacity 0.3s ease;
         
         &:hover {
@@ -535,33 +554,32 @@
         
         &::after {
             content: ' →';
-            margin-left: 5px;
+            margin-left: 0.3125rem;
         }
     }
 
     /* Responsive adjustments */
     @media only screen and (max-width: 767px) {
         &__post-item-title a {
-            padding-right: 28px;
+            padding-right: 1.75rem;
         }
         
         &__post-inner--right {
             .turbo_blog_wl__post-item-title a {
                 padding-right: 0;
-                padding-left: 28px;
+                padding-left: 1.75rem;
             }
         }
         
         &__read-more-arrow {
             svg {
-                width: 18px;
-                height: 18px;
+                width: 1.125rem;
+                height: 1.125rem;
             }
         }
         
         &__read-more-link {
-            font-size: 12px;
+            font-size: 0.75rem;
         }
     }
 }
-

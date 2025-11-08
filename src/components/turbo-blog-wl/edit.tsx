@@ -725,7 +725,7 @@ const TurboBlogWlEdit = (props: TurboBlogWlEditProps): ReactElement => {
                                                 background: 'none',
                                                 border: 'none',
                                                 color: 'inherit',
-                                                textDecoration: 'underline',
+                                                textDecoration: 'none',
                                                 cursor: 'pointer',
                                                 padding: 0,
                                                 font: 'inherit'

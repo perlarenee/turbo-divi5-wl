@@ -616,7 +616,7 @@ trait RenderCallbackTrait {
 									'turbo_meta_name'   => urlencode( $cat->name ),
 								], $base_url );
 								
-								$cat_links[] = '<a href="' . esc_url( $cat_url ) . '" style="text-decoration: underline;">' . esc_html( $cat->name ) . '</a>';
+								$cat_links[] = '<a href="' . esc_url( $cat_url ) . '">' . esc_html( $cat->name ) . '</a>';
 							}
 							
 							$post_meta_parts[] = HTMLUtility::render(
@@ -647,7 +647,7 @@ trait RenderCallbackTrait {
 									'turbo_meta_name'   => urlencode( $tag->name ),
 								], $base_url );
 								
-								$tag_links[] = '<a href="' . esc_url( $tag_url ) . '" style="text-decoration: underline;">' . esc_html( $tag->name ) . '</a>';
+								$tag_links[] = '<a href="' . esc_url( $tag_url ) . '">' . esc_html( $tag->name ) . '</a>';
 							}
 							
 							$post_meta_parts[] = HTMLUtility::render(
@@ -737,7 +737,7 @@ trait RenderCallbackTrait {
 									'turbo_meta_name'   => urlencode( $cat->name ),
 								], $base_url );
 								
-								$cat_links[] = '<a href="' . esc_url( $cat_url ) . '" style="text-decoration: underline;">' . esc_html( $cat->name ) . '</a>';
+								$cat_links[] = '<a href="' . esc_url( $cat_url ) . '">' . esc_html( $cat->name ) . '</a>';
 							}
 							
 							$taxonomy_parts[] = implode( ', ', $cat_links );
@@ -759,7 +759,7 @@ trait RenderCallbackTrait {
 									'turbo_meta_name'   => urlencode( $tag->name ),
 								], $base_url );
 								
-								$tag_links[] = '<a href="' . esc_url( $tag_url ) . '" style="text-decoration: underline;">' . esc_html( $tag->name ) . '</a>';
+								$tag_links[] = '<a href="' . esc_url( $tag_url ) . '">' . esc_html( $tag->name ) . '</a>';
 							}
 							
 							if ( ! empty( $taxonomy_parts ) ) {
