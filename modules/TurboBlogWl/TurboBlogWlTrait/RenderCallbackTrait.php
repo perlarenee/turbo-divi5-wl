@@ -342,6 +342,7 @@ trait RenderCallbackTrait {
 		$show_categories     = $attrs['showCategories']['innerContent']['desktop']['value'] ?? 'on';
 		$show_tags           = $attrs['showTags']['innerContent']['desktop']['value'] ?? 'on';
 		$image_position      = $attrs['imagePosition']['innerContent']['desktop']['value'] ?? 'above';
+		$image_position_first = $attrs['imagePositionFirst']['innerContent']['desktop']['value'] ?? 'above';
 		$show_pagination     = $attrs['showPagination']['innerContent']['desktop']['value'] ?? 'on';
 		
 		// Filter settings
@@ -484,7 +485,12 @@ trait RenderCallbackTrait {
 				
 				// Determine image position for this post
 				$current_image_position = $image_position;
-				if ( $alternate_image_position && ( $image_position === 'left' || $image_position === 'right' ) ) {
+
+				// Special handling for first post when full-width
+				if ( $is_first_post && $should_be_full_width ) {
+					$current_image_position = $image_position_first;
+				} elseif ( $alternate_image_position && ( $image_position === 'left' || $image_position === 'right' ) ) {
+					// Regular alternating logic for other posts
 					if ( $post_index % 2 === 0 ) {
 						$current_image_position = $image_position;
 					} else {

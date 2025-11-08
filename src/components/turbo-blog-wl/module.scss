@@ -2,17 +2,24 @@
     
     &__inner {
         position: relative; 
+        border-top: 1px solid #ddd;
+        padding-top: 3.125rem;
+        margin-top: 3.125rem;
     }
 
     &__title {
-        margin-bottom: 30px;
+        margin-bottom: 3.125rem;
+        padding-bottom: 0;
     }
 
     &__post-item {
-        margin-bottom: 20px;
+        border-top: 1px solid #ddd;
+        padding-top: 3.125rem;
+        margin-top: 3.125rem;
 
         &-title {
-            font-size: 18px;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
         }
     }
 
@@ -148,9 +155,12 @@
         }
     }
 
-    /* Full-width first post in grid - THIS IS KEY! */
+    /* Full-width first post in grid */
     &__post-item--full-width {
         grid-column: 1 / -1; /* Span all columns */
+        margin-top: 0;
+        border-top: none;
+        padding-top: 0;
     }
 
     /* Optional: Featured images in grid items */

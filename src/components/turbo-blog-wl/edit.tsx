@@ -320,6 +320,7 @@ const TurboBlogWlEdit = (props: TurboBlogWlEditProps): ReactElement => {
   const metaPosition = ((attrsAny)?.metaPosition?.innerContent?.desktop?.value as string) || 'off';
   const layoutType = ((attrsAny)?.layoutType?.innerContent?.desktop?.value as string) || 'off';
   const imagePosition = (attrsAny?.imagePosition?.innerContent?.desktop?.value as string) || 'above';
+  const imagePositionFirst = (attrsAny?.imagePositionFirst?.innerContent?.desktop?.value as string) || 'above'; 
   const alternateImagePosition = (attrsAny?.alternateImagePosition?.innerContent?.desktop?.value as string) === 'on';
   const firstPostFullWidth = (attrsAny?.firstPostFullWidth?.innerContent?.desktop?.value as string) === 'on';
   const firstPostShowImage = ((attrsAny?.firstPostShowImage?.innerContent?.desktop?.value as string) || 'on') === 'on';
@@ -655,8 +656,14 @@ const TurboBlogWlEdit = (props: TurboBlogWlEditProps): ReactElement => {
                         ? (shouldBeFullWidth ? firstPostShowImage : showFeaturedImage)
                         : showFeaturedImage;
                       
+                      // Determine image position for this post
                       let currentImagePosition = imagePosition;
-                      if (alternateImagePosition && (imagePosition === 'left' || imagePosition === 'right')) {
+
+                      // Special handling for first post when full-width
+                      if (isFirstPost && shouldBeFullWidth) {
+                        currentImagePosition = imagePositionFirst;
+                      } else if (alternateImagePosition && (imagePosition === 'left' || imagePosition === 'right')) {
+                        // Regular alternating logic for other posts
                         if (imagePosition === 'left') {
                           currentImagePosition = index % 2 === 0 ? 'left' : 'right';
                         } else {

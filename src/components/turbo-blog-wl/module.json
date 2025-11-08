@@ -323,6 +323,44 @@
         }
       }
     },
+    "imagePositionFirst": {
+      "type": "object",
+      "default": {
+        "innerContent": {
+          "desktop": {
+            "value": "above"
+          }
+        }
+      },
+      "settings": {
+        "innerContent": {
+          "groupType": "group-item",
+          "item": {
+            "groupSlug": "heroPost",
+            "priority": 70,
+            "render": true,
+            "label": "First Post Image Position",
+            "description": "Choose where to place the featured image relative to the content.",
+            "features": {
+              "responsive": false,
+              "dynamicContent": false
+            },
+            "component": {
+              "type": "field",
+              "name": "divi/select",
+              "props": {
+                "options": {
+                  "above": { "label": "Above Content" },
+                  "below": { "label": "Below Content" },
+                  "left":  { "label": "Left of Content" },
+                  "right": { "label": "Right of Content" }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "showAuthor": {
       "type": "object",
       "default": {
@@ -559,7 +597,7 @@
         "innerContent": {
           "desktop": {
             "value": {
-              "rowGap": "30px"
+              "rowGap": "0px"
             }
           }
         }
