@@ -38,7 +38,6 @@
   /* Default: Vertical stacking (above/below) */
   /* Horizontal layouts (left/right) */
   /* Featured image sizing for horizontal layouts */
-  /* Content wrapper sizing for horizontal layouts */
   /* ====================================
      LAYOUT TYPES (Grid vs Full Width)
      ==================================== */
@@ -146,19 +145,11 @@
   align-items: flex-start;
   gap: 20px;
 }
-.turbo_blog_wl__post-inner--left .turbo_blog_wl__post-featured-image, .turbo_blog_wl__post-inner--right .turbo_blog_wl__post-featured-image {
-  flex: 0 0 45%; /* Fixed width at 45% */
-  max-width: 45%;
-}
 .turbo_blog_wl__post-inner--left .turbo_blog_wl__post-featured-image img, .turbo_blog_wl__post-inner--right .turbo_blog_wl__post-featured-image img {
   width: 100%;
   height: auto;
   display: block;
   object-fit: cover;
-}
-.turbo_blog_wl__post-inner--left .turbo_blog_wl__post-content-wrapper, .turbo_blog_wl__post-inner--right .turbo_blog_wl__post-content-wrapper {
-  flex: 1 1 0;
-  min-width: 0; /* Prevent flex overflow */
 }
 .turbo_blog_wl__post-items--fullwidth {
   display: flex;

@@ -107,14 +107,15 @@
     &__post-inner--right {
         flex-direction: row;
         align-items: flex-start;
-        gap: 20px;
+        gap: 20px; // REMOVE THIS LINE - it's being set dynamically now
     }
 
     /* Featured image sizing for horizontal layouts */
     &__post-inner--left .turbo_blog_wl__post-featured-image,
     &__post-inner--right .turbo_blog_wl__post-featured-image {
-        flex: 0 0 45%; /* Fixed width at 45% */
-        max-width: 45%;
+        // REMOVE OR COMMENT OUT THESE LINES - they conflict with dynamic sizing
+        // flex: 0 0 45%; /* Fixed width at 45% */
+        // max-width: 45%;
         
         img {
             width: 100%;
@@ -122,13 +123,6 @@
             display: block;
             object-fit: cover;
         }
-    }
-
-    /* Content wrapper sizing for horizontal layouts */
-    &__post-inner--left .turbo_blog_wl__post-content-wrapper,
-    &__post-inner--right .turbo_blog_wl__post-content-wrapper {
-        flex: 1 1 0;
-        min-width: 0; /* Prevent flex overflow */
     }
 
     /* ====================================

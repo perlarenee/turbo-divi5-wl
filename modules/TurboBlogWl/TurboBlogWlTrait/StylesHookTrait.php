@@ -75,7 +75,7 @@ trait StylesHookTrait {
 		$wrapper  = '.' . sanitize_html_class( $order_class );
 
 		// Build CSS string
-		$css  = $selector . "/*hello css world*/ {\n";
+		$css  = $selector . "{\n";
 		$css .= "  display: grid;\n";
 		$css .= "  grid-template-columns: " . $gcd . ";\n";
 		$css .= "  row-gap: " . $grgd . ";\n";
@@ -107,6 +107,41 @@ trait StylesHookTrait {
 		$css .= $wrapper . " .turbo_blog_wl__post-item {\n";
 		$css .= "  box-sizing: border-box;\n";
 		$css .= "}\n";
+
+		// Apply grid column gap to first post left/right image positioning
+		$css .= $wrapper . " .turbo_blog_wl__post-inner--left,\n";
+		$css .= $wrapper . " .turbo_blog_wl__post-inner--right {\n";
+		$css .= "  display: flex;\n";
+		$css .= "  align-items: flex-start;\n";
+		$css .= "  gap: " . $gcgd . ";\n";
+		$css .= "}\n\n";
+
+		// Make image and content columns equal width
+		$css .= $wrapper . " .turbo_blog_wl__post-inner--left > .turbo_blog_wl__post-featured-image,\n";
+		$css .= $wrapper . " .turbo_blog_wl__post-inner--left > .turbo_blog_wl__post-content-wrapper,\n";
+		$css .= $wrapper . " .turbo_blog_wl__post-inner--right > .turbo_blog_wl__post-featured-image,\n";
+		$css .= $wrapper . " .turbo_blog_wl__post-inner--right > .turbo_blog_wl__post-content-wrapper {\n";
+		$css .= "  flex: 1 1 0;\n";
+		$css .= "  min-width: 0;\n";
+		$css .= "}\n\n";
+
+		if ( $gcgt ) {
+			$css .= "@media only screen and (max-width: 980px) {\n";
+			$css .= "  " . $wrapper . " .turbo_blog_wl__post-inner--left,\n";
+			$css .= "  " . $wrapper . " .turbo_blog_wl__post-inner--right {\n";
+			$css .= "    gap: " . $gcgt . ";\n";
+			$css .= "  }\n";
+			$css .= "}\n\n";
+		}
+
+		if ( $gcgp ) {
+			$css .= "@media only screen and (max-width: 767px) {\n";
+			$css .= "  " . $wrapper . " .turbo_blog_wl__post-inner--left,\n";
+			$css .= "  " . $wrapper . " .turbo_blog_wl__post-inner--right {\n";
+			$css .= "    gap: " . $gcgp . ";\n";
+			$css .= "  }\n";
+			$css .= "}\n\n";
+		}
 
 		// Register + enqueue inline style
 		$handle = 'turbo-blog-wl-inline-' . md5( $selector );
