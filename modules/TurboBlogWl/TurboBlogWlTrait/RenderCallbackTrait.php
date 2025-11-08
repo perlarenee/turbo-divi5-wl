@@ -328,7 +328,12 @@ trait RenderCallbackTrait {
 	public static function render_callback( $attrs, $content, $block, $elements ) {
 
 		$post_heading_level  = $attrs['postTitle']['decoration']['font']['font']['desktop']['value']['headingLevel'];
-		$posts_per_page      = $attrs['postItems']['innerContent']['desktop']['value']['postsNumber'];
+		// Validate posts per page to prevent crashes
+		$posts_per_page = $attrs['postItems']['innerContent']['desktop']['value']['postsNumber'] ?? '';
+		if ( empty( $posts_per_page ) || ! is_numeric( $posts_per_page ) || $posts_per_page <= 0 ) {
+			$posts_per_page = 6; // Default fallback
+		}
+		$posts_per_page = absint( $posts_per_page );
 		$post_type           = $attrs['postType']['innerContent']['desktop']['value']['postType'] ?? 'post';
 		$categories = $attrs['categories']['innerContent']['desktop']['value'] ?? '';
 		$tags = $attrs['tags']['innerContent']['desktop']['value'] ?? '';
