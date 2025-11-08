@@ -20,7 +20,7 @@ import { moduleClassnames } from './module-classnames';
  * Generate pagination range with ellipsis
  */
 const getPaginationRange = (currentPage: number, totalPages: number): (number | string)[] => {
-  const delta = 2;
+  const delta = (currentPage <= 3 || currentPage >= totalPages - 2) ? 3 : 2;
   const range: number[] = [];
   const rangeWithDots: (number | string)[] = [];
   let l: number | undefined;
@@ -251,7 +251,12 @@ const TurboBlogWlEdit = (props: TurboBlogWlEditProps): ReactElement => {
   const attrsAny = attrs as any;
 
   const PostTitleHeading = attrs?.postTitle?.decoration?.font?.font?.desktop?.value?.headingLevel;
-  const postsNumber = parseInt(attrs?.postItems?.innerContent?.desktop?.value?.postsNumber) || 6;
+  const postsNumber = (() => {
+    const value = attrs?.postItems?.innerContent?.desktop?.value?.postsNumber;
+    if (!value || value === '') return 6;
+    const parsed = parseInt(value);
+    return (!isNaN(parsed) && parsed > 0) ? parsed : 6;
+  })();
   const postType = ((attrsAny)?.postType?.innerContent?.desktop?.value?.postType as string) || 'post';
   
   // Safe extraction functions for categories and tags with trailing comma handling
@@ -349,9 +354,8 @@ const TurboBlogWlEdit = (props: TurboBlogWlEditProps): ReactElement => {
     fetchAbortRef.current = new AbortController();
 
     // Validate postsNumber to prevent crashes
-    const validPostsNumber = postsNumber > 0 ? postsNumber : 6;
-    const fetchLimit = showPagination ? validPostsNumber * 5 : validPostsNumber;
-
+    const validPostsNumber = (postsNumber > 0 && !isNaN(postsNumber)) ? postsNumber : 6;
+    const fetchLimit = showPagination ? Math.max(validPostsNumber * 10, 50) : validPostsNumber;
     let queryParams = `context=view&per_page=${fetchLimit}&_embed&order=${sortOrder}`;
     
     if (postOffset > 0) {
@@ -422,12 +426,12 @@ const TurboBlogWlEdit = (props: TurboBlogWlEditProps): ReactElement => {
     setCurrentPage(1);
   }, [filterType, showFilter]);
 
-  const totalPosts = response?.length || 0;
+  const totalPosts = (response && Array.isArray(response)) ? response.length : 0;
   const validPostsNumber = postsNumber > 0 ? postsNumber : 6;
   const totalPages = Math.ceil(totalPosts / validPostsNumber);
   const startIndex = (currentPage - 1) * validPostsNumber;
   const endIndex = startIndex + validPostsNumber;
-  const currentPosts = response ? response.slice(startIndex, endIndex) : [];
+  const currentPosts = (response && Array.isArray(response)) ? response.slice(startIndex, endIndex) : [];
 
   const handlePrevPage = () => {
     if (currentPage > 1) {
