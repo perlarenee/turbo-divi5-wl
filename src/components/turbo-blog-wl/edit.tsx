@@ -25,6 +25,14 @@ const getPaginationRange = (currentPage: number, totalPages: number): (number | 
   const rangeWithDots: (number | string)[] = [];
   let l: number | undefined;
 
+  // If total pages is small, just return all pages
+  if (totalPages <= 7) {
+    for (let i = 1; i <= totalPages; i++) {
+      range.push(i);
+    }
+    return range;
+  }
+
   range.push(1);
 
   for (let i = currentPage - delta; i <= currentPage + delta; i++) {
@@ -317,6 +325,7 @@ const TurboBlogWlEdit = (props: TurboBlogWlEditProps): ReactElement => {
   const filterType = (attrsAny?.filterType?.innerContent?.desktop?.value as string) || 'categories';
   const filterPosition = (attrsAny?.filterPosition?.innerContent?.desktop?.value as string) || 'left';
   const excerptLength = parseInt(attrsAny?.excerptLength?.innerContent?.desktop?.value?.excerptLength) || 270;
+  const excerptLengthFirst = parseInt(attrsAny?.excerptLengthFirst?.innerContent?.desktop?.value?.excerptLengthFirst) || 270;
   const showReadMore = ((attrsAny?.showReadMore?.innerContent?.desktop?.value as string) || 'on') === 'on';
   const readMoreStyle = (attrsAny?.readMoreStyle?.innerContent?.desktop?.value as string) || 'arrow';
   const readMoreText = (attrsAny?.readMoreText?.innerContent?.desktop?.value as string) || 'Read More';
@@ -437,13 +446,13 @@ const TurboBlogWlEdit = (props: TurboBlogWlEditProps): ReactElement => {
   };
 
   const handleCategoryClick = (categoryId: number, categoryName: string) => {
-    console.log('Clicked category:', categoryId, categoryName);
+    //console.log('Clicked category:', categoryId, categoryName);
     setMetaFilter({ type: 'category', id: String(categoryId), name: categoryName });
     setCurrentPage(1);
   };
 
   const handleTagClick = (tagId: number, tagName: string) => {
-    console.log('Clicked tag:', tagId, tagName);
+    //console.log('Clicked tag:', tagId, tagName);
     setMetaFilter({ type: 'tag', id: String(tagId), name: tagName });
     setCurrentPage(1);
   };
@@ -539,7 +548,7 @@ const TurboBlogWlEdit = (props: TurboBlogWlEditProps): ReactElement => {
                 <button
                   className={`turbo_blog_wl__filter-item ${selectedFilter === 'all' ? 'turbo_blog_wl__filter-item--active' : ''}`}
                   onClick={() => {
-                    console.log('Clicked View All');
+                    //console.log('Clicked View All');
                     setSelectedFilter('all');
                     setCurrentPage(1);
                     handleClearMetaFilter(); // Also clear meta filter
@@ -555,7 +564,7 @@ const TurboBlogWlEdit = (props: TurboBlogWlEditProps): ReactElement => {
                     key={term.id}
                     className={`turbo_blog_wl__filter-item ${selectedFilter === String(term.id) ? 'turbo_blog_wl__filter-item--active' : ''}`}
                     onClick={() => {
-                      console.log('Clicked filter:', term.id, term.name);
+                      //.log('Clicked filter:', term.id, term.name);
                       setSelectedFilter(String(term.id));
                       setCurrentPage(1);
                       handleClearMetaFilter(); // Clear meta filter when using nav filter
@@ -750,7 +759,10 @@ const TurboBlogWlEdit = (props: TurboBlogWlEditProps): ReactElement => {
                               )}
                               
                               <div className="turbo_blog_wl__post-item-content">
-                                {getCustomExcerpt(post, excerptLength)}
+                                {getCustomExcerpt(
+                                  post, 
+                                  isFirstPost && shouldBeFullWidth ? excerptLengthFirst : excerptLength
+                                )}
                               </div>
 
                               {showReadMore && readMoreStyle === 'link' && (

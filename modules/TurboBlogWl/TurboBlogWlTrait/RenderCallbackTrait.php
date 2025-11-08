@@ -41,6 +41,14 @@ trait RenderCallbackTrait {
 		$range_with_dots = [];
 		$l               = null;
 
+		// If total pages is small, just return all pages
+		if ( $total_pages <= 7 ) {
+			for ( $i = 1; $i <= $total_pages; $i++ ) {
+				$range[] = $i;
+			}
+			return $range;
+		}
+
 		// Always include first page
 		$range[] = 1;
 
@@ -347,6 +355,9 @@ trait RenderCallbackTrait {
 		$post_offset              = absint( $attrs['postOffset']['innerContent']['desktop']['value']['postOffset'] ?? 0 );
 		$sort_order               = $attrs['sortOrder']['innerContent']['desktop']['value']['sortOrder'] ?? 'desc';
 		$excerpt_length = absint( $attrs['excerptLength']['innerContent']['desktop']['value']['excerptLength'] ?? 270 );
+
+		$excerpt_length_first = absint( $attrs['excerptLengthFirst']['innerContent']['desktop']['value']['excerptLengthFirst'] ?? 270 );
+
 		$show_read_more  = ( $attrs['showReadMore']['innerContent']['desktop']['value'] ?? 'on' ) === 'on';
 		$read_more_style = $attrs['readMoreStyle']['innerContent']['desktop']['value'] ?? 'arrow';
 		$read_more_text  = $attrs['readMoreText']['innerContent']['desktop']['value'] ?? 'Read More';
@@ -660,6 +671,9 @@ trait RenderCallbackTrait {
 					}
 				}
 
+				// Determine which excerpt length to use
+				$current_excerpt_length = ( $is_first_post && $should_be_full_width ) ? $excerpt_length_first : $excerpt_length;
+
 				// Post content/excerpt
 				$post_content = HTMLUtility::render(
 					[
@@ -668,7 +682,7 @@ trait RenderCallbackTrait {
 							'class' => 'turbo_blog_wl__post-item-content',
 						],
 						'childrenSanitizer' => 'et_core_esc_previously',
-						'children'          => self::get_custom_excerpt( $post, $excerpt_length ),
+						'children'          => self::get_custom_excerpt( $post, $current_excerpt_length ),
 					]
 				);
 				$content_wrapper_parts[] = $post_content;
