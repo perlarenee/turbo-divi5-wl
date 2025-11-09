@@ -31,9 +31,9 @@
   \*******************************************************************************************************************************************************************************************/
 @charset "UTF-8";
 .turbo_blog_wl {
-  /* Default: Add margin to title only when image is above (default/vertical layout) */
-  /* Ensure no top margin when image is left, right, or below */
-  /* Standard title margin bottom */
+  /* Default title spacing */
+  /* ONLY add top margin when image is above */
+  /* Explicitly remove top margin for left/right/below */
   /* Meta styles - above content */
   /* ====================================
      POST INNER LAYOUTS (Image Positioning)
@@ -91,15 +91,16 @@
 .turbo_blog_wl__post-item-title a:hover {
   color: var(--accent-color, #ff0000);
 }
-.turbo_blog_wl__post-inner:not(.turbo_blog_wl__post-inner--left):not(.turbo_blog_wl__post-inner--right):not(.turbo_blog_wl__post-inner--below) .turbo_blog_wl__post-featured-image + .turbo_blog_wl__post-content-wrapper .turbo_blog_wl__post-item-title {
-  margin-top: 1.875rem;
-}
-.turbo_blog_wl__post-inner--left .turbo_blog_wl__post-item-title, .turbo_blog_wl__post-inner--right .turbo_blog_wl__post-item-title, .turbo_blog_wl__post-inner--below .turbo_blog_wl__post-item-title {
-  margin-top: 0;
-}
 .turbo_blog_wl__post-item-title {
   margin-bottom: 1.875rem;
   padding-bottom: 0;
+  margin-top: 0; /* Default: no top margin */
+}
+.turbo_blog_wl__post-inner--above .turbo_blog_wl__post-featured-image + .turbo_blog_wl__post-content-wrapper .turbo_blog_wl__post-item-title {
+  margin-top: 1.875rem;
+}
+.turbo_blog_wl__post-inner--left .turbo_blog_wl__post-item-title, .turbo_blog_wl__post-inner--right .turbo_blog_wl__post-item-title, .turbo_blog_wl__post-inner--below .turbo_blog_wl__post-item-title {
+  margin-top: 0 !important;
 }
 .turbo_blog_wl__post-meta--above {
   background: #f5f5f5;
