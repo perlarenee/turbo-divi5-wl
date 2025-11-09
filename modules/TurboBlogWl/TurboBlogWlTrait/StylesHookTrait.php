@@ -149,4 +149,33 @@ trait StylesHookTrait {
 		wp_enqueue_style( $handle );
 		wp_add_inline_style( $handle, $css );
 	}
+	public static function enqueue_color_styles( $attrs, $order_class ) {
+		// Normalize order class (strip leading dot if any)
+		$order_class = ltrim( (string) $order_class, '.' );
+
+		// Bail early if empty
+		if ( empty( $order_class ) || empty( $attrs ) ) {
+			return;
+		}
+
+		// Extract color values
+		$accent_color = $attrs['accentColor']['innerContent']['desktop']['value'] ?? '#ff0000';
+		$border_color = $attrs['borderColor']['innerContent']['desktop']['value'] ?? '#ddd';
+
+		// Build selector safely
+		$wrapper = '.' . sanitize_html_class( $order_class );
+
+		// Build CSS string with color variables
+		$css = $wrapper . " {\n";
+		$css .= "  --accent-color: " . esc_attr( $accent_color ) . ";\n";
+		$css .= "  --accent-hover: " . esc_attr( $accent_color ) . "cc;\n"; // 80% opacity
+		$css .= "  --border-color: " . esc_attr( $border_color ) . ";\n";
+		$css .= "}\n";
+
+		// Register + enqueue inline style
+		$handle = 'turbo-blog-wl-colors-' . md5( $wrapper );
+		wp_register_style( $handle, false );
+		wp_enqueue_style( $handle );
+		wp_add_inline_style( $handle, $css );
+	}
 }

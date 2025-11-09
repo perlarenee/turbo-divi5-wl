@@ -2,7 +2,7 @@
     
     &__inner {
         position: relative; 
-        border-top: 1px solid #ddd;
+        border-top: 1px solid var(--border-color, #ddd);
         padding-top: 3.125rem;
         margin-top: 3.125rem;
     }
@@ -13,19 +13,31 @@
     }
 
     &__post-item {
-        border-top: 1px solid #ddd;
+        border-top: 1px solid var(--border-color, #ddd);
         padding-top: 3.125rem;
         margin-top: 3.125rem;
 
         &-title {
             font-size: 1.5rem;
             margin-bottom: 0.625rem;
+            
+            a {
+                color: inherit;
+                text-decoration: none;
+                transition: color 0.3s ease;
+                
+                &:hover {
+                    color: var(--accent-color, #ff0000);
+                }
+            }
         }
     }
 
     /* Add margin to title when image is above */
     &__post-featured-image + &__post-content-wrapper &__post-item-title {
         margin-top: 1.875rem; 
+        margin-bottom: 1.875rem;
+        padding-bottom: 0;
     }
 
     /* Meta styles - above content */
@@ -36,7 +48,8 @@
         font-size: .8rem;
         color: #666;
         
-        span {
+        // Only add pipes between direct child spans (meta sections)
+        > span {
             display: inline-block;
             
             &:not(:last-child)::after {
@@ -46,35 +59,48 @@
             }
         }
         
-        a {
-            color: #666;
+        // Style both links and buttons
+        a,
+        button {
+            color: var(--accent-color, #666);
             text-decoration: none;
             transition: color 0.3s ease;
+            font-size: 1rem;
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            font-family: inherit;
             
             &:hover {
-                color: #000;
+                color: var(--accent-hover, #1e1e1e);
             }
         }
     }
 
     &__post-meta--below {
         margin-top: 1.875rem;
+        
         span {
             display: inline-block;
-            
-            &:not(:last-child)::after {
-                content: '|';
-                margin: 0 0.625rem;
-                color: #ccc;
-            }
+            margin: 0 0.1rem;
         }
-        a {
-            color: #666;
+        
+        // Style both links and buttons
+        a,
+        button {
+            color: #1e1e1e;
             text-decoration: none;
             transition: color 0.3s ease;
+            font-size: 1rem;
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            font-family: inherit;
             
             &:hover {
-                color: #000;
+                text-decoration: underline;
             }
         }
     }
@@ -83,6 +109,24 @@
         margin-bottom: 1.5625rem;
         font-size: 1rem;
         color: #666;
+        
+        // Style both links and buttons
+        a,
+        button {
+            color: #1e1e1e;
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 1rem;
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            font-family: inherit;
+            
+            &:hover {
+                text-decoration: underline;
+            }
+        }
     }
 
     &__post-author-info {
@@ -107,6 +151,7 @@
     &__post-author-name {
         font-weight: bold;
         font-size: 1rem;
+        color: #1e1e1e;
     }
 
     &__post-date {
@@ -166,6 +211,9 @@
             display: flex;
             flex-direction: column;
         }
+        .turbo_blog_wl__post-item-content p{
+            font-size:1rem;
+        }
     }
 
     /* Full-width first post in grid */
@@ -192,8 +240,8 @@
     &__pagination {
         margin-top: 1.875rem;
         padding: 1.875rem 0;
-        border-top: 1px solid #ddd;
-        border-bottom: 1px solid #ddd;
+        border-top: 1px solid var(--border-color, #ddd);
+        border-bottom: 1px solid var(--border-color, #ddd);
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -202,7 +250,7 @@
 
     &__pagination-prev,
     &__pagination-next {
-        color: #000;
+        color: #1e1e1e;
         text-decoration: none;
         text-transform: uppercase;
         font-weight: bold;
@@ -233,7 +281,7 @@
     }
 
     &__pagination-number {
-        color: #000;
+        color: #1e1e1e;
         text-decoration: none;
         padding: 0.3125rem 0.625rem;
         transition: all 0.3s ease;
@@ -248,11 +296,11 @@
 
     &__pagination-current {
         font-weight: bold;
-        color: #000;
+        color: #1e1e1e;
     }
 
     &__pagination-number:not(.turbo_blog_wl__pagination-current) {
-        color: #ddd;
+        color: #1e1e1e;
     }
 
     &__pagination-ellipsis {
@@ -332,159 +380,154 @@
    FILTER SIDEBAR
    ==================================== */
 
-&__content-wrapper {
-    display: flex;
-    flex-direction: column;
-}
-
-&__content-wrapper--with-filter {
-    display: flex;
-    flex-direction: row;
-    gap: 1.875rem;
-    align-items: flex-start;
-}
-
-&__content-wrapper--filter-right {
-    flex-direction: row-reverse;
-}
-
-&__filter {
-    flex: 0 0 15.625rem;
-    position: sticky;
-    top: 1.25rem;
-}
-
-&__filter--left {
-    border-right: 1px solid #ddd;
-    padding-right: 1.875rem;
-}
-
-&__filter--right {
-    border-left: 1px solid #ddd;
-    padding-left: 1.875rem;
-}
-
-&__filter-inner {
-    display: flex;
-    flex-direction: column;
-    gap: 0.625rem;
-}
-
-&__filter-item {
-    text-align: left;
-    padding: 0.625rem 0.9375rem;
-    border: none;
-    background: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: capitalize;
-    text-decoration: none;
-    position: relative;
-    color: #999;
-    font-size: 1rem;
-    display: block;
-    
-   /* &:first-child {
-        color: #000;
-        font-weight: bold;
-        text-transform: none;
-    }*/
-    
-    &:hover {
-        opacity: 0.7;
-    }
-}
-
-&__filter-item--active {
-    color: #000 !important;
-    font-weight: bold;
-    
-    &::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        width: 0.1875rem;
-        background: #000;
-    }
-}
-
-// Active border position based on filter position
-&__filter--left &__filter-item--active::before {
-    right: -1.875rem;
-}
-
-&__filter--right &__filter-item--active::before {
-    left: -1.875rem;
-}
-
-&__posts-wrapper {
-    flex: 1;
-    min-width: 0;
-}
-
-/* Responsive: Stack filter on tablet and match pagination style */
-@media only screen and (max-width: 980px) {
-    &__content-wrapper--with-filter {
+    &__content-wrapper {
+        display: flex;
         flex-direction: column;
-        gap: 0;
     }
-    
-    &__filter {
-        flex: 1 1 auto;
-        width: 100%;
-        position: relative;
-        border: none !important;
-        padding: 0 0 2em 0 !important;
-        border-bottom: 1px solid #000 !important;
-        margin-bottom: 2em;
-    }
-    
-    &__filter-inner {
+
+    &__content-wrapper--with-filter {
+        display: flex;
         flex-direction: row;
-        flex-wrap: wrap;
-        gap: 0;
-        justify-content: center;
+        gap: 1.875rem;
+        align-items: flex-start;
     }
-    
+
+    &__content-wrapper--filter-right {
+        flex-direction: row-reverse;
+    }
+
+    &__filter {
+        flex: 0 0 15.625rem;
+        position: sticky;
+        top: 1.25rem;
+    }
+
+    &__filter--left {
+        border-right: 1px solid #ddd;
+        padding-right: 1.875rem;
+    }
+
+    &__filter--right {
+        border-left: 1px solid #ddd;
+        padding-left: 1.875rem;
+    }
+
+    &__filter-inner {
+        display: flex;
+        flex-direction: column;
+        gap: 0.625rem;
+    }
+
     &__filter-item {
-        padding: 0.5rem 0.75rem;
-        background: none;
+        text-align: left;
+        padding: 0.625rem 0.9375rem;
         border: none;
-        text-align: center;
-        font-size: 0.85em;
+        background: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-transform: capitalize;
+        text-decoration: none;
+        position: relative;
+        color: #999;
+        font-size: 1rem;
+        display: block;
         
-        &:first-child {
-            text-transform: uppercase;
+        &:hover {
+            color: #1e1e1e;
+        }
+    }
+
+    &__filter-item--active {
+        color: #1e1e1e !important;
+        font-weight: bold;
+        
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 0.1875rem;
+            background: #1e1e1e;
+        }
+    }
+
+    // Active border position based on filter position
+    &__filter--left &__filter-item--active::before {
+        right: -1.875rem;
+    }
+
+    &__filter--right &__filter-item--active::before {
+        left: -1.875rem;
+    }
+
+    &__posts-wrapper {
+        flex: 1;
+        min-width: 0;
+    }
+
+    /* Responsive: Stack filter on tablet and match pagination style */
+    @media only screen and (max-width: 980px) {
+        &__content-wrapper--with-filter {
+            flex-direction: column;
+            gap: 0;
         }
         
-        &--active {
+        &__filter {
+            flex: 1 1 auto;
+            width: 100%;
+            position: relative;
+            border: none !important;
+            padding: 0 0 2em 0 !important;
+            border-bottom: 1px solid var(--border-color, #1e1e1e) !important;
+            margin-bottom: 2em;
+        }
+        
+        &__filter-inner {
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 0;
+            justify-content: center;
+        }
+        
+        &__filter-item {
+            padding: 0.5rem 0.75rem;
             background: none;
-            text-decoration: underline;
+            border: none;
+            text-align: center;
+            font-size: 0.85em;
             
-            &::before {
-                display: none;
+            &:first-child {
+                text-transform: uppercase;
+            }
+            
+            &--active {
+                background: none;
+                text-decoration: underline;
+                text-decoration-color: var(--accent-color, #1e1e1e);
+                
+                &::before {
+                    display: none;
+                }
             }
         }
     }
-}
 
-/* Phone: Simplify filter further */
-@media only screen and (max-width: 767px) {
-    &__filter {
-        padding: 0 0 1.5em 0 !important;
-        margin-bottom: 1.5em;
+    /* Phone: Simplify filter further */
+    @media only screen and (max-width: 767px) {
+        &__filter {
+            padding: 0 0 1.5em 0 !important;
+            margin-bottom: 1.5em;
+        }
+        
+        &__filter-inner {
+            gap: 0;
+        }
+        
+        &__filter-item {
+            padding: 0.375rem 0.625rem;
+            font-size: 0.8em;
+        }
     }
-    
-    &__filter-inner {
-        gap: 0;
-    }
-    
-    &__filter-item {
-        padding: 0.375rem 0.625rem;
-        font-size: 0.8em;
-    }
-}
 
    /* ====================================
    READ MORE STYLES
@@ -497,7 +540,7 @@
         a {
             display: block;
             position: relative;
-            padding-right: 1.875rem; // Small space to prevent overlap on very short titles
+            padding-right: 1.875rem;
         }
     }
 
@@ -508,7 +551,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #ff0000;
+        color: var(--accent-color, #ff0000);
         transition: transform 0.3s ease;
         line-height: 1;
         
@@ -541,15 +584,15 @@
     &__read-more-link {
         display: inline-block;
         margin-top: 0.9375rem;
-        color: #000;
+        color: var(--accent-color, #1e1e1e);
         text-decoration: none;
         font-weight: bold;
         text-transform: uppercase;
         font-size: 0.875rem;
-        transition: opacity 0.3s ease;
+        transition: color 0.3s ease;
         
         &:hover {
-            opacity: 0.7;
+            color: var(--accent-hover, #1e1e1e);
         }
         
         &::after {

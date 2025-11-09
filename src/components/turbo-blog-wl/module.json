@@ -671,6 +671,70 @@
         }
       }
     },
+    "accentColor": {
+      "type": "object",
+      "default": {
+        "innerContent": {
+          "desktop": {
+            "value": "#ff0000"
+          }
+        }
+      },
+      "settings": {
+        "innerContent": {
+          "groupType": "group-item",
+          "item": {
+            "groupSlug": "designGrid",
+            "priority": 10,
+            "render": true,
+            "label": "Accent Color",
+            "description": "Choose the accent color for arrows, links, and active states.",
+            "features": {
+              "sticky": false,
+              "responsive": false,
+              "hover": true,
+              "dynamicContent": false
+            },
+            "component": {
+              "type": "field",
+              "name": "divi/color-picker"
+            }
+          }
+        }
+      }
+    },
+    "borderColor": {
+      "type": "object",
+      "default": {
+        "innerContent": {
+          "desktop": {
+            "value": "#ff0000"
+          }
+        }
+      },
+      "settings": {
+        "innerContent": {
+          "groupType": "group-item",
+          "item": {
+            "groupSlug": "designGrid",
+            "priority": 10,
+            "render": true,
+            "label": "Border Color",
+            "description": "Choose the border color.",
+            "features": {
+              "sticky": false,
+              "responsive": false,
+              "hover": true,
+              "dynamicContent": false
+            },
+            "component": {
+              "type": "field",
+              "name": "divi/color-picker"
+            }
+          }
+        }
+      }
+    },
     "alternateImagePosition": {
       "type": "object",
       "default": {

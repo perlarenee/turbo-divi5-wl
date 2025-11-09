@@ -475,6 +475,9 @@ trait RenderCallbackTrait {
 		$order_class = '.turbo_blog_wl_' . $block->parsed_block['orderIndex'];
 		self::enqueue_grid_styles( $attrs, $order_class );
 
+		// Generate color CSS for frontend
+		self::enqueue_color_styles( $attrs, $order_class );
+
 		$posts      = get_posts( $query_args );
 		$post_items = '';
 
@@ -693,7 +696,7 @@ trait RenderCallbackTrait {
 							'class' => 'turbo_blog_wl__post-item-content',
 						],
 						'childrenSanitizer' => 'et_core_esc_previously',
-						'children'          => self::get_custom_excerpt( $post, $current_excerpt_length ),
+						'children'          => '<p>'.self::get_custom_excerpt( $post, $current_excerpt_length ).'</p>',
 					]
 				);
 				$content_wrapper_parts[] = $post_content;

@@ -52,7 +52,11 @@ const ModuleStyles = ({
     return fallback;
   };
 
-  // Because your module.json uses separate attributes for gaps, try those names.
+  // Extract color values
+  const accentColor = (attrsAny?.accentColor?.innerContent?.desktop?.value) || '#ff0000';
+  const borderColor = (attrsAny?.borderColor?.innerContent?.desktop?.value) || '#ddd';
+
+  // Because module.json uses separate attributes for gaps
   const layoutType = (attrsAny?.layoutType?.innerContent?.desktop?.value) || 'off';
 
   let gridCss = '';
@@ -135,6 +139,15 @@ const ModuleStyles = ({
     }
   }
 
+  // Color CSS variables
+  const colorsCss = `
+    ${orderClass} {
+      --accent-color: ${accentColor};
+      --accent-hover: ${accentColor}cc;
+      --border-color: ${borderColor};
+    }
+  `;
+
   return (
     <>
       <StyleContainer mode={mode} state={state} noStyleTag={noStyleTag}>
@@ -164,6 +177,9 @@ const ModuleStyles = ({
       </StyleContainer>
       {gridCss && !noStyleTag && (
         <style dangerouslySetInnerHTML={{ __html: gridCss }} />
+      )}
+      {colorsCss && !noStyleTag && (
+        <style dangerouslySetInnerHTML={{ __html: colorsCss }} />
       )}
     </>
   );

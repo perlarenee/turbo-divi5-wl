@@ -752,7 +752,7 @@ const TurboBlogWlEdit = (props: TurboBlogWlEditProps): ReactElement => {
                                                 background: 'none',
                                                 border: 'none',
                                                 color: 'inherit',
-                                                textDecoration: 'underline',
+                                                textDecoration: 'none',
                                                 cursor: 'pointer',
                                                 padding: 0,
                                                 font: 'inherit'
@@ -770,10 +770,12 @@ const TurboBlogWlEdit = (props: TurboBlogWlEditProps): ReactElement => {
                               )}
                               
                               <div className="turbo_blog_wl__post-item-content">
+                                <p>
                                 {getCustomExcerpt(
                                   post, 
                                   isFirstPost && shouldBeFullWidth ? excerptLengthFirst : excerptLength
                                 )}
+                                </p>
                               </div>
 
                               {showReadMore && readMoreStyle === 'link' && (
@@ -801,7 +803,7 @@ const TurboBlogWlEdit = (props: TurboBlogWlEditProps): ReactElement => {
                                                   background: 'none',
                                                   border: 'none',
                                                   color: 'inherit',
-                                                  textDecoration: 'underline',
+                                                  textDecoration: 'none',
                                                   cursor: 'pointer',
                                                   padding: 0,
                                                   font: 'inherit'
@@ -830,7 +832,7 @@ const TurboBlogWlEdit = (props: TurboBlogWlEditProps): ReactElement => {
                                                   background: 'none',
                                                   border: 'none',
                                                   color: 'inherit',
-                                                  textDecoration: 'underline',
+                                                  textDecoration: 'none',
                                                   cursor: 'pointer',
                                                   padding: 0,
                                                   font: 'inherit'
