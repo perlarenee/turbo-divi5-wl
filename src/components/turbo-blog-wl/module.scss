@@ -33,9 +33,22 @@
         }
     }
 
-    /* Add margin to title when image is above */
-    &__post-featured-image + &__post-content-wrapper &__post-item-title {
-        margin-top: 1.875rem; 
+    /* Default: Add margin to title only when image is above (default/vertical layout) */
+    &__post-inner:not(.turbo_blog_wl__post-inner--left):not(.turbo_blog_wl__post-inner--right):not(.turbo_blog_wl__post-inner--below) {
+        .turbo_blog_wl__post-featured-image + .turbo_blog_wl__post-content-wrapper .turbo_blog_wl__post-item-title {
+            margin-top: 1.875rem; 
+        }
+    }
+
+    /* Ensure no top margin when image is left, right, or below */
+    &__post-inner--left &__post-item-title,
+    &__post-inner--right &__post-item-title,
+    &__post-inner--below &__post-item-title {
+        margin-top: 0;
+    }
+
+    /* Standard title margin bottom */
+    &__post-item-title {
         margin-bottom: 1.875rem;
         padding-bottom: 0;
     }
