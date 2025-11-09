@@ -346,8 +346,10 @@ trait RenderCallbackTrait {
 		$show_date           = $attrs['showDate']['innerContent']['desktop']['value'] ?? 'on';
 		$show_categories     = $attrs['showCategories']['innerContent']['desktop']['value'] ?? 'on';
 		$show_tags           = $attrs['showTags']['innerContent']['desktop']['value'] ?? 'on';
-		$image_position      = $attrs['imagePosition']['innerContent']['desktop']['value'] ?? 'above';
-		$image_position_first = $attrs['imagePositionFirst']['innerContent']['desktop']['value'] ?? 'above';
+		$image_position = $attrs['imagePosition']['innerContent']['desktop']['value'] ?? 'above';
+		$image_position_first = $attrs['imagePositionFirst']['innerContent']['desktop']['value'] ?? $image_position;
+		$image_position_first_tablet = $attrs['imagePositionFirst']['innerContent']['tablet']['value'] ?? $image_position_first;
+		$image_position_first_phone = $attrs['imagePositionFirst']['innerContent']['phone']['value'] ?? $image_position_first_tablet;
 		$show_pagination     = $attrs['showPagination']['innerContent']['desktop']['value'] ?? 'on';
 		
 		// Filter settings
@@ -911,13 +913,23 @@ trait RenderCallbackTrait {
 					);
 				}
 
+				// Build data attributes for responsive image positioning
+				$data_attributes = [];
+				if ( $is_first_post && $should_be_full_width ) {
+					$data_attributes['data-tablet-position'] = $image_position_first_tablet;
+					$data_attributes['data-phone-position'] = $image_position_first_phone;
+				}
+
 				// Post inner wrapper
 				$post_inner = HTMLUtility::render(
 					[
 						'tag'               => 'div',
-						'attributes'        => [
-							'class' => 'turbo_blog_wl__post-inner turbo_blog_wl__post-inner--' . $current_image_position,
-						],
+						'attributes'        => array_merge(
+							[
+								'class' => 'turbo_blog_wl__post-inner turbo_blog_wl__post-inner--' . $current_image_position,
+							],
+							$data_attributes
+						),
 						'childrenSanitizer' => 'et_core_esc_previously',
 						'children'          => implode( '', $post_content_parts ),
 					]

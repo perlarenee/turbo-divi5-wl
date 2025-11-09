@@ -33,7 +33,7 @@
         }
     }
 
-   /* Default title spacing */
+    /* Default title spacing */
     &__post-item-title {
         margin-bottom: 1.875rem;
         padding-bottom: 0;
@@ -52,6 +52,33 @@
     &__post-inner--right .turbo_blog_wl__post-item-title,
     &__post-inner--below .turbo_blog_wl__post-item-title {
         margin-top: 0 !important;
+    }
+
+    /* Responsive: Adjust title margin based on data attributes */
+    @media only screen and (max-width: 980px) {
+        .turbo_blog_wl__post-inner {
+            &[data-tablet-position="above"] .turbo_blog_wl__post-item-title {
+                margin-top: 1.875rem !important;
+            }
+            &[data-tablet-position="left"] .turbo_blog_wl__post-item-title,
+            &[data-tablet-position="right"] .turbo_blog_wl__post-item-title,
+            &[data-tablet-position="below"] .turbo_blog_wl__post-item-title {
+                margin-top: 0 !important;
+            }
+        }
+    }
+
+    @media only screen and (max-width: 767px) {
+        .turbo_blog_wl__post-inner {
+            &[data-phone-position="above"] .turbo_blog_wl__post-item-title {
+                margin-top: 1.875rem !important;
+            }
+            &[data-phone-position="left"] .turbo_blog_wl__post-item-title,
+            &[data-phone-position="right"] .turbo_blog_wl__post-item-title,
+            &[data-phone-position="below"] .turbo_blog_wl__post-item-title {
+                margin-top: 0 !important;
+            }
+        }
     }
 
     /* Meta styles - above content */
@@ -181,7 +208,6 @@
     &__post-inner {
         display: flex;
         flex-direction: column;
-        gap: 0.9375rem;
     }
 
     /* Horizontal layouts (left/right) */
@@ -244,6 +270,58 @@
             width: 100%;
             height: auto;
             display: block;
+        }
+    }
+
+    /* Responsive image position overrides for first post */
+    @media only screen and (max-width: 980px) {
+        .turbo_blog_wl__post-item--full-width .turbo_blog_wl__post-inner {
+            // Override for tablet - you'll need to set this via inline style or data attribute
+            &[data-tablet-position="left"] {
+                flex-direction: row;
+                .turbo_blog_wl__post-featured-image {
+                    order: 0;
+                }
+            }
+            &[data-tablet-position="right"] {
+                flex-direction: row;
+                .turbo_blog_wl__post-featured-image {
+                    order: 1;
+                }
+            }
+            &[data-tablet-position="above"] {
+                flex-direction: column;
+                .turbo_blog_wl__post-featured-image {
+                    order: -1;
+                }
+            }
+            &[data-tablet-position="below"] {
+                flex-direction: column;
+                .turbo_blog_wl__post-featured-image {
+                    order: 1;
+                }
+            }
+        }
+    }
+
+    @media only screen and (max-width: 767px) {
+        .turbo_blog_wl__post-item--full-width .turbo_blog_wl__post-inner {
+            &[data-phone-position="left"],
+            &[data-phone-position="right"] {
+                flex-direction: column; // Force stack on mobile
+            }
+            &[data-phone-position="above"] {
+                flex-direction: column;
+                .turbo_blog_wl__post-featured-image {
+                    order: -1;
+                }
+            }
+            &[data-phone-position="below"] {
+                flex-direction: column;
+                .turbo_blog_wl__post-featured-image {
+                    order: 1;
+                }
+            }
         }
     }
 

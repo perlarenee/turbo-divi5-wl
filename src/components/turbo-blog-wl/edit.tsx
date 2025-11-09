@@ -320,7 +320,9 @@ const TurboBlogWlEdit = (props: TurboBlogWlEditProps): ReactElement => {
   const metaPosition = ((attrsAny)?.metaPosition?.innerContent?.desktop?.value as string) || 'off';
   const layoutType = ((attrsAny)?.layoutType?.innerContent?.desktop?.value as string) || 'off';
   const imagePosition = (attrsAny?.imagePosition?.innerContent?.desktop?.value as string) || 'above';
-  const imagePositionFirst = (attrsAny?.imagePositionFirst?.innerContent?.desktop?.value as string) || 'above'; 
+ const imagePositionFirst = (attrsAny?.imagePositionFirst?.innerContent?.desktop?.value as string) || imagePosition;
+const imagePositionFirstTablet = (attrsAny?.imagePositionFirst?.innerContent?.tablet?.value as string) || imagePositionFirst;
+const imagePositionFirstPhone = (attrsAny?.imagePositionFirst?.innerContent?.phone?.value as string) || imagePositionFirstTablet;
   const alternateImagePosition = (attrsAny?.alternateImagePosition?.innerContent?.desktop?.value as string) === 'on';
   const firstPostFullWidth = (attrsAny?.firstPostFullWidth?.innerContent?.desktop?.value as string) === 'on';
   const firstPostShowImage = ((attrsAny?.firstPostShowImage?.innerContent?.desktop?.value as string) || 'on') === 'on';
@@ -676,8 +678,12 @@ const TurboBlogWlEdit = (props: TurboBlogWlEditProps): ReactElement => {
                           className={`turbo_blog_wl__post-item ${shouldBeFullWidth ? 'turbo_blog_wl__post-item--full-width' : ''}`} 
                           key={post.id}
                         >
-                          <div className={`turbo_blog_wl__post-inner turbo_blog_wl__post-inner--${currentImagePosition}`}>
-                            
+                          <div 
+                            className={`turbo_blog_wl__post-inner turbo_blog_wl__post-inner--${currentImagePosition}`}
+                            data-tablet-position={isFirstPost && shouldBeFullWidth ? imagePositionFirstTablet : undefined}
+                            data-phone-position={isFirstPost && shouldBeFullWidth ? imagePositionFirstPhone : undefined}
+                          >
+
                             {(currentImagePosition === 'above' || currentImagePosition === 'left') && shouldShowImage && featuredImage && (
                               <div className="turbo_blog_wl__post-featured-image">
                                 <img src={featuredImage} alt={featuredImageAlt || post?.title?.rendered} />

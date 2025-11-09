@@ -342,7 +342,7 @@
             "label": "First Post Image Position",
             "description": "Choose where to place the featured image relative to the content.",
             "features": {
-              "responsive": false,
+              "responsive": true,
               "dynamicContent": false
             },
             "component": {
