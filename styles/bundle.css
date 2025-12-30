@@ -937,6 +937,19 @@ a:hover .turbo_blog_wl__read-more-arrow {
     margin-bottom: 0 !important;
   }
 }
+.masonry_gallery__item.et_pb_module {
+  margin-bottom: 0 !important;
+}
+@media (min-width: 981px) {
+  .masonry_gallery__item.et_pb_module {
+    margin-bottom: 0 !important;
+  }
+}
+@media (max-width: 980px) {
+  .masonry_gallery__item.et_pb_module {
+    margin-bottom: 0 !important;
+  }
+}
 /*!**************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./src/components/masonry-gallery-item/module.scss ***!
   \**************************************************************************************************************************************************************************************************/
