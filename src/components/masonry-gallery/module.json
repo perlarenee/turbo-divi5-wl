@@ -1,0 +1,718 @@
+{
+  "name": "turbo/masonry-gallery",
+  "d4Shortcode": "",
+  "title": "Masonry Gallery",
+  "titles": "Masonry Galleries",
+  "moduleIcon": "grid_on",
+  "moduleClassName": "masonry_gallery",
+  "moduleOrderClassName": "masonry_gallery",
+  "category": "module",
+  "childModuleName": "turbo/masonry-gallery-item",
+  "childModuleTitle": "Gallery Item",
+  "childrenName": [
+    "turbo/masonry-gallery-item"
+  ],
+  "attributes": {
+    "module": {
+      "type": "object",
+      "selector": "{{selector}}",
+      "default": {
+        "meta": {
+          "adminLabel": {
+            "desktop": {
+              "value": "Masonry Gallery"
+            }
+          }
+        }
+      },
+      "settings": {
+        "meta": {
+          "adminLabel": {}
+        },
+        "advanced": {
+          "link": {},
+          "text": {},
+          "htmlAttributes": {}
+        },
+        "decoration": {
+          "background": {},
+          "sizing": {},
+          "spacing": {},
+          "border": {},
+          "boxShadow": {},
+          "filters": {},
+          "transform": {},
+          "animation": {},
+          "overflow": {},
+          "disabledOn": {},
+          "transition": {},
+          "position": {},
+          "zIndex": {},
+          "scroll": {},
+          "sticky": {}
+        }
+      }
+    },
+    "title": {
+      "type": "object",
+      "selector": "{{selector}} .masonry_gallery__title",
+      "default": {
+        "decoration": {
+          "font": {
+            "font": {
+              "desktop": {
+                "value": {
+                  "headingLevel": "h2"
+                }
+              }
+            }
+          }
+        }
+      },
+      "inlineEditor": "plainText",
+      "elementType": "heading",
+      "childrenSanitizer": "et_core_esc_previously",
+      "attributes": {
+        "class": "masonry_gallery__title"
+      },
+      "settings": {
+        "innerContent": {
+          "groupType": "group-item",
+          "item": {
+            "groupSlug": "contentGallery",
+            "priority": 10,
+            "render": true,
+            "attrName": "title.innerContent",
+            "label": "Title",
+            "description": "Title to show for gallery.",
+            "features": {
+              "sticky": false,
+              "dynamicContent": false
+            },
+            "component": {
+              "name": "divi/text",
+              "type": "field"
+            }
+          }
+        },
+        "decoration": {
+          "font": {
+            "priority": 10,
+            "component": {
+              "props": {
+                "groupLabel": "Title Text",
+                "fieldLabel": "Title"
+              }
+            }
+          }
+        }
+      }
+    },
+    "columnsDesktop": {
+      "type": "object",
+      "default": {
+        "innerContent": {
+          "desktop": {
+            "value": {
+              "columnsDesktop": "4"
+            }
+          }
+        }
+      },
+      "settings": {
+        "innerContent": {
+          "groupType": "group-item",
+          "item": {
+            "groupSlug": "designLayout",
+            "priority": 10,
+            "render": true,
+            "subName": "columnsDesktop",
+            "label": "Columns (Desktop)",
+            "description": "Number of columns on desktop.",
+            "features": {
+              "sticky": false,
+              "responsive": false,
+              "hover": false,
+              "dynamicContent": false
+            },
+            "component": {
+              "name": "divi/text",
+              "type": "field"
+            }
+          }
+        }
+      }
+    },
+    "columnsTablet": {
+      "type": "object",
+      "default": {
+        "innerContent": {
+          "desktop": {
+            "value": {
+              "columnsTablet": "3"
+            }
+          }
+        }
+      },
+      "settings": {
+        "innerContent": {
+          "groupType": "group-item",
+          "item": {
+            "groupSlug": "designLayout",
+            "priority": 20,
+            "render": true,
+            "subName": "columnsTablet",
+            "label": "Columns (Tablet)",
+            "description": "Number of columns on tablet.",
+            "features": {
+              "sticky": false,
+              "responsive": false,
+              "hover": false,
+              "dynamicContent": false
+            },
+            "component": {
+              "name": "divi/text",
+              "type": "field"
+            }
+          }
+        }
+      }
+    },
+    "columnsMobile": {
+      "type": "object",
+      "default": {
+        "innerContent": {
+          "desktop": {
+            "value": {
+              "columnsMobile": "1"
+            }
+          }
+        }
+      },
+      "settings": {
+        "innerContent": {
+          "groupType": "group-item",
+          "item": {
+            "groupSlug": "designLayout",
+            "priority": 30,
+            "render": true,
+            "subName": "columnsMobile",
+            "label": "Columns (Mobile)",
+            "description": "Number of columns on mobile.",
+            "features": {
+              "sticky": false,
+              "responsive": false,
+              "hover": false,
+              "dynamicContent": false
+            },
+            "component": {
+              "name": "divi/text",
+              "type": "field"
+            }
+          }
+        }
+      }
+    },
+    "minColumnWidth": {
+      "type": "object",
+      "default": {
+        "innerContent": {
+          "desktop": {
+            "value": {
+              "minColumnWidth": "250px"
+            }
+          }
+        }
+      },
+      "settings": {
+        "innerContent": {
+          "groupType": "group-item",
+          "item": {
+            "groupSlug": "designLayout",
+            "priority": 40,
+            "render": true,
+            "subName": "minColumnWidth",
+            "label": "Minimum Column Width",
+            "description": "Minimum width for each column.",
+            "features": {
+              "sticky": false,
+              "responsive": false,
+              "hover": false,
+              "dynamicContent": false
+            },
+            "component": {
+              "name": "divi/text",
+              "type": "field"
+            }
+          }
+        }
+      }
+    },
+    "rowHeight": {
+      "type": "object",
+      "default": {
+        "innerContent": {
+          "desktop": {
+            "value": {
+              "rowHeight": "200px"
+            }
+          }
+        }
+      },
+      "settings": {
+        "innerContent": {
+          "groupType": "group-item",
+          "item": {
+            "groupSlug": "designLayout",
+            "priority": 50,
+            "render": true,
+            "subName": "rowHeight",
+            "label": "Base Row Height",
+            "description": "Height of each row in the grid.",
+            "features": {
+              "sticky": false,
+              "responsive": false,
+              "hover": false,
+              "dynamicContent": false
+            },
+            "component": {
+              "name": "divi/text",
+              "type": "field"
+            }
+          }
+        }
+      }
+    },
+    "gap": {
+      "type": "object",
+      "default": {
+        "innerContent": {
+          "desktop": {
+            "value": {
+              "gap": "10px"
+            }
+          }
+        }
+      },
+      "settings": {
+        "innerContent": {
+          "groupType": "group-item",
+          "item": {
+            "groupSlug": "designLayout",
+            "priority": 60,
+            "render": true,
+            "subName": "gap",
+            "label": "Gap Between Items",
+            "description": "Space between grid items.",
+            "features": {
+              "sticky": false,
+              "responsive": true,
+              "hover": false,
+              "dynamicContent": false
+            },
+            "component": {
+              "type": "field",
+              "name": "divi/range",
+              "props": {
+                "min": 0,
+                "max": 100,
+                "allowedUnits": ["px", "em", "rem"]
+              }
+            }
+          }
+        }
+      }
+    },
+    "autoDetectOrientation": {
+      "type": "object",
+      "default": {
+        "innerContent": {
+          "desktop": {
+            "value": "on"
+          }
+        }
+      },
+      "settings": {
+        "innerContent": {
+          "groupType": "group-item",
+          "item": {
+            "groupSlug": "designMasonry",
+            "priority": 10,
+            "render": true,
+            "label": "Auto-Detect Image Orientation",
+            "description": "Automatically detect portrait/landscape images and size them accordingly.",
+            "features": {
+              "sticky": false,
+              "responsive": false,
+              "hover": false,
+              "dynamicContent": false
+            },
+            "component": {
+              "name": "divi/toggle",
+              "type": "field"
+            }
+          }
+        }
+      }
+    },
+    "portraitHeightMultiplier": {
+      "type": "object",
+      "default": {
+        "innerContent": {
+          "desktop": {
+            "value": {
+              "portraitHeightMultiplier": "2"
+            }
+          }
+        }
+      },
+      "settings": {
+        "innerContent": {
+          "groupType": "group-item",
+          "item": {
+            "groupSlug": "designMasonry",
+            "priority": 20,
+            "render": true,
+            "subName": "portraitHeightMultiplier",
+            "label": "Portrait Height Multiplier",
+            "description": "How many rows should portrait images span?",
+            "features": {
+              "sticky": false,
+              "responsive": false,
+              "hover": false,
+              "dynamicContent": false
+            },
+            "component": {
+              "name": "divi/text",
+              "type": "field"
+            }
+          }
+        }
+      }
+    },
+    "landscapeWidthMultiplier": {
+      "type": "object",
+      "default": {
+        "innerContent": {
+          "desktop": {
+            "value": {
+              "landscapeWidthMultiplier": "2"
+            }
+          }
+        }
+      },
+      "settings": {
+        "innerContent": {
+          "groupType": "group-item",
+          "item": {
+            "groupSlug": "designMasonry",
+            "priority": 30,
+            "render": true,
+            "subName": "landscapeWidthMultiplier",
+            "label": "Landscape Width Multiplier",
+            "description": "How many columns should landscape images span?",
+            "features": {
+              "sticky": false,
+              "responsive": false,
+              "hover": false,
+              "dynamicContent": false
+            },
+            "component": {
+              "name": "divi/text",
+              "type": "field"
+            }
+          }
+        }
+      }
+    },
+    "showCaptions": {
+      "type": "object",
+      "default": {
+        "innerContent": {
+          "desktop": {
+            "value": "off"
+          }
+        }
+      },
+      "settings": {
+        "innerContent": {
+          "groupType": "group-item",
+          "item": {
+            "groupSlug": "designImage",
+            "priority": 10,
+            "render": true,
+            "label": "Show Image Captions",
+            "description": "Display image captions below each image.",
+            "features": {
+              "sticky": false,
+              "responsive": false,
+              "hover": false,
+              "dynamicContent": false
+            },
+            "component": {
+              "name": "divi/toggle",
+              "type": "field"
+            }
+          }
+        }
+      }
+    },
+    "imageFit": {
+      "type": "object",
+      "default": {
+        "innerContent": {
+          "desktop": {
+            "value": "cover"
+          }
+        }
+      },
+      "settings": {
+        "innerContent": {
+          "groupType": "group-item",
+          "item": {
+            "groupSlug": "designImage",
+            "priority": 20,
+            "render": true,
+            "label": "Image Fit",
+            "description": "How should images fit within their containers?",
+            "features": {
+              "sticky": false,
+              "responsive": false,
+              "hover": false,
+              "dynamicContent": false
+            },
+            "component": {
+              "type": "field",
+              "name": "divi/select",
+              "props": {
+                "options": {
+                  "cover": {"label": "Cover"},
+                  "contain": {"label": "Contain"},
+                  "fill": {"label": "Fill"}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "enableLightbox": {
+      "type": "object",
+      "default": {
+        "innerContent": {
+          "desktop": {
+            "value": "on"
+          }
+        }
+      },
+      "settings": {
+        "innerContent": {
+          "groupType": "group-item",
+          "item": {
+            "groupSlug": "designLightbox",
+            "priority": 10,
+            "render": true,
+            "label": "Enable Lightbox",
+            "description": "Open images in a lightbox when clicked.",
+            "features": {
+              "sticky": false,
+              "responsive": false,
+              "hover": false,
+              "dynamicContent": false
+            },
+            "component": {
+              "name": "divi/toggle",
+              "type": "field"
+            }
+          }
+        }
+      }
+    },
+    "enablePagination": {
+      "type": "object",
+      "default": {
+        "innerContent": {
+          "desktop": {
+            "value": "off"
+          }
+        }
+      },
+      "settings": {
+        "innerContent": {
+          "groupType": "group-item",
+          "item": {
+            "groupSlug": "designPagination",
+            "priority": 10,
+            "render": true,
+            "label": "Enable Pagination",
+            "description": "Split images across multiple pages.",
+            "features": {
+              "sticky": false,
+              "responsive": false,
+              "hover": false,
+              "dynamicContent": false
+            },
+            "component": {
+              "name": "divi/toggle",
+              "type": "field"
+            }
+          }
+        }
+      }
+    },
+    "imagesPerPage": {
+      "type": "object",
+      "default": {
+        "innerContent": {
+          "desktop": {
+            "value": {
+              "imagesPerPage": "12"
+            }
+          }
+        }
+      },
+      "settings": {
+        "innerContent": {
+          "groupType": "group-item",
+          "item": {
+            "groupSlug": "designPagination",
+            "priority": 20,
+            "render": true,
+            "subName": "imagesPerPage",
+            "label": "Images Per Page",
+            "description": "Number of images to display per page.",
+            "features": {
+              "sticky": false,
+              "responsive": false,
+              "hover": false,
+              "dynamicContent": false
+            },
+            "component": {
+              "name": "divi/text",
+              "type": "field"
+            }
+          }
+        }
+      }
+    },
+    "paginationStyle": {
+      "type": "object",
+      "default": {
+        "innerContent": {
+          "desktop": {
+            "value": "both"
+          }
+        }
+      },
+      "settings": {
+        "innerContent": {
+          "groupType": "group-item",
+          "item": {
+            "groupSlug": "designPagination",
+            "priority": 30,
+            "render": true,
+            "label": "Pagination Style",
+            "description": "Choose pagination display style.",
+            "features": {
+              "sticky": false,
+              "responsive": false,
+              "hover": false,
+              "dynamicContent": false
+            },
+            "component": {
+              "type": "field",
+              "name": "divi/select",
+              "props": {
+                "options": {
+                  "numbers": {"label": "Numbers"},
+                  "arrows": {"label": "Prev/Next Arrows"},
+                  "both": {"label": "Both"}
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "customCssFields": {},
+  "settings": {
+    "content": "auto",
+    "design": "auto",
+    "advanced": "auto",
+    "groups": {
+      "contentGallery": {
+        "panel": "content",
+        "priority": 10,
+        "groupName": "contentGallery",
+        "multiElements": true,
+        "component": {
+          "name": "divi/composite",
+          "props": {
+            "groupLabel": "Gallery"
+          }
+        }
+      },
+      "designLayout": {
+        "panel": "design",
+        "priority": 10,
+        "groupName": "designLayout",
+        "multiElements": true,
+        "component": {
+          "name": "divi/composite",
+          "props": {
+            "groupLabel": "Layout"
+          }
+        }
+      },
+      "designMasonry": {
+        "panel": "design",
+        "priority": 20,
+        "groupName": "designMasonry",
+        "multiElements": true,
+        "component": {
+          "name": "divi/composite",
+          "props": {
+            "groupLabel": "Masonry Settings"
+          }
+        }
+      },
+      "designImage": {
+        "panel": "design",
+        "priority": 30,
+        "groupName": "designImage",
+        "multiElements": true,
+        "component": {
+          "name": "divi/composite",
+          "props": {
+            "groupLabel": "Image"
+          }
+        }
+      },
+      "designLightbox": {
+        "panel": "design",
+        "priority": 40,
+        "groupName": "designLightbox",
+        "multiElements": true,
+        "component": {
+          "name": "divi/composite",
+          "props": {
+            "groupLabel": "Lightbox"
+          }
+        }
+      },
+      "designPagination": {
+        "panel": "design",
+        "priority": 50,
+        "groupName": "designPagination",
+        "multiElements": true,
+        "component": {
+          "name": "divi/composite",
+          "props": {
+            "groupLabel": "Pagination"
+          }
+        }
+      }
+    }
+  }
+}

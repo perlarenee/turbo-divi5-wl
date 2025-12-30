@@ -1,71 +1,7 @@
-/*!******************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./src/components/child-module/module.scss ***!
-  \******************************************************************************************************************************************************************************************/
-.example_child_module {
-  display: flex;
-  flex-wrap: wrap;
-}
-.example_child_module__icon.et-pb-icon {
-  font-size: 21px;
-  padding-top: 6px;
-  color: #29c4a9;
-}
-.example_child_module__content-container {
-  flex-grow: 1;
-  flex-basis: 0%;
-  padding-left: 15px;
-}
-.example_child_module__title {
-  font-size: 21px;
-  line-height: 1em;
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-.example_child_module__content {
-  font-size: 13px;
-  line-height: 1.6em;
-  color: #868686;
-}
 /*!*******************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./src/components/turbo-blog-wl/module.scss ***!
   \*******************************************************************************************************************************************************************************************/
 @charset "UTF-8";
-.turbo_blog_wl {
-  /* Default title spacing */
-  /* ONLY add top margin when image is above */
-  /* Explicitly remove top margin for left/right/below */
-  /* Responsive: Adjust title margin based on data attributes */
-  /* Meta styles - above content */
-  /* ====================================
-     POST INNER LAYOUTS (Image Positioning)
-     ==================================== */
-  /* Default: Vertical stacking (above/below) */
-  /* Horizontal layouts (left/right) */
-  /* Featured image sizing for horizontal layouts */
-  /* ====================================
-     LAYOUT TYPES (Grid vs Full Width)
-     ==================================== */
-  /* Full width layout */
-  /* Grid layout - styles.ts handles columns/gaps dynamically */
-  /* Full-width first post in grid */
-  /* Optional: Featured images in grid items */
-  /* Responsive image position overrides for first post */
-  /* ====================================
-   PAGINATION
-   ==================================== */
-  /* Tablet: Reduce size, keep single row */
-  /* Phone: Remove pagination numbers, only show prev/next */
-  /* Responsive: Make horizontal layouts stack on mobile */
-  /* ====================================
-   FILTER SIDEBAR
-   ==================================== */
-  /* Responsive: Stack filter on tablet and match pagination style */
-  /* Phone: Simplify filter further */
-  /* ====================================
-  READ MORE STYLES
-  ==================================== */
-  /* Responsive adjustments */
-}
 .turbo_blog_wl__inner {
   position: relative;
   border-top: 1px solid var(--border-color, #ddd);
@@ -93,16 +29,28 @@
 .turbo_blog_wl__post-item-title a:hover {
   color: var(--accent-color, #ff0000);
 }
+.turbo_blog_wl {
+  /* Default title spacing */
+}
 .turbo_blog_wl__post-item-title {
   margin-bottom: 1.875rem;
   padding-bottom: 0;
   margin-top: 0; /* Default: no top margin */
 }
+.turbo_blog_wl {
+  /* ONLY add top margin when image is above */
+}
 .turbo_blog_wl__post-inner--above .turbo_blog_wl__post-featured-image + .turbo_blog_wl__post-content-wrapper .turbo_blog_wl__post-item-title {
   margin-top: 1.875rem;
 }
+.turbo_blog_wl {
+  /* Explicitly remove top margin for left/right/below */
+}
 .turbo_blog_wl__post-inner--left .turbo_blog_wl__post-item-title, .turbo_blog_wl__post-inner--right .turbo_blog_wl__post-item-title, .turbo_blog_wl__post-inner--below .turbo_blog_wl__post-item-title {
   margin-top: 0 !important;
+}
+.turbo_blog_wl {
+  /* Responsive: Adjust title margin based on data attributes */
 }
 @media only screen and (max-width: 980px) {
   .turbo_blog_wl .turbo_blog_wl__post-inner[data-tablet-position=above] .turbo_blog_wl__post-item-title {
@@ -119,6 +67,9 @@
   .turbo_blog_wl .turbo_blog_wl__post-inner[data-phone-position=left] .turbo_blog_wl__post-item-title, .turbo_blog_wl .turbo_blog_wl__post-inner[data-phone-position=right] .turbo_blog_wl__post-item-title, .turbo_blog_wl .turbo_blog_wl__post-inner[data-phone-position=below] .turbo_blog_wl__post-item-title {
     margin-top: 0 !important;
   }
+}
+.turbo_blog_wl {
+  /* Meta styles - above content */
 }
 .turbo_blog_wl__post-meta--above {
   background: #f5f5f5;
@@ -220,13 +171,25 @@
   font-size: 0.875rem;
   color: #666;
 }
+.turbo_blog_wl {
+  /* ====================================
+     POST INNER LAYOUTS (Image Positioning)
+     ==================================== */
+  /* Default: Vertical stacking (above/below) */
+}
 .turbo_blog_wl__post-inner {
   display: flex;
   flex-direction: column;
 }
+.turbo_blog_wl {
+  /* Horizontal layouts (left/right) */
+}
 .turbo_blog_wl__post-inner--left, .turbo_blog_wl__post-inner--right {
   flex-direction: row;
   align-items: flex-start;
+}
+.turbo_blog_wl {
+  /* Featured image sizing for horizontal layouts */
 }
 .turbo_blog_wl__post-inner--left .turbo_blog_wl__post-featured-image img, .turbo_blog_wl__post-inner--right .turbo_blog_wl__post-featured-image img {
   width: 100%;
@@ -234,10 +197,19 @@
   display: block;
   object-fit: cover;
 }
+.turbo_blog_wl {
+  /* ====================================
+     LAYOUT TYPES (Grid vs Full Width)
+     ==================================== */
+  /* Full width layout */
+}
 .turbo_blog_wl__post-items--fullwidth {
   display: flex;
   flex-direction: column;
   gap: 1.875rem;
+}
+.turbo_blog_wl {
+  /* Grid layout - styles.ts handles columns/gaps dynamically */
 }
 .turbo_blog_wl__post-items--grid {
   display: grid;
@@ -252,16 +224,25 @@
 .turbo_blog_wl__post-items--grid .turbo_blog_wl__post-item-content p {
   font-size: 1rem;
 }
+.turbo_blog_wl {
+  /* Full-width first post in grid */
+}
 .turbo_blog_wl__post-item--full-width {
   grid-column: 1/-1; /* Span all columns */
   margin-top: 0;
   border-top: none;
   padding-top: 0;
 }
+.turbo_blog_wl {
+  /* Optional: Featured images in grid items */
+}
 .turbo_blog_wl__post-featured-image img {
   width: 100%;
   height: auto;
   display: block;
+}
+.turbo_blog_wl {
+  /* Responsive image position overrides for first post */
 }
 @media only screen and (max-width: 980px) {
   .turbo_blog_wl .turbo_blog_wl__post-item--full-width .turbo_blog_wl__post-inner[data-tablet-position=left] {
@@ -305,6 +286,11 @@
   .turbo_blog_wl .turbo_blog_wl__post-item--full-width .turbo_blog_wl__post-inner[data-phone-position=below] .turbo_blog_wl__post-featured-image {
     order: 1;
   }
+}
+.turbo_blog_wl {
+  /* ====================================
+   PAGINATION
+   ==================================== */
 }
 .turbo_blog_wl__pagination {
   margin-top: 1.875rem;
@@ -368,6 +354,9 @@
   user-select: none;
   pointer-events: none;
 }
+.turbo_blog_wl {
+  /* Tablet: Reduce size, keep single row */
+}
 @media only screen and (max-width: 980px) {
   .turbo_blog_wl__pagination {
     gap: 0;
@@ -384,6 +373,9 @@
     font-size: 0.85em;
     padding: 0.25rem 0.5rem;
   }
+}
+.turbo_blog_wl {
+  /* Phone: Remove pagination numbers, only show prev/next */
 }
 @media only screen and (max-width: 767px) {
   .turbo_blog_wl__pagination {
@@ -406,6 +398,9 @@
     justify-content: flex-end;
   }
 }
+.turbo_blog_wl {
+  /* Responsive: Make horizontal layouts stack on mobile */
+}
 @media only screen and (max-width: 767px) {
   .turbo_blog_wl__post-inner--left, .turbo_blog_wl__post-inner--right {
     flex-direction: column;
@@ -414,6 +409,11 @@
     flex: 1 1 auto;
     max-width: 100%;
   }
+}
+.turbo_blog_wl {
+  /* ====================================
+   FILTER SIDEBAR
+   ==================================== */
 }
 .turbo_blog_wl__content-wrapper {
   display: flex;
@@ -485,6 +485,9 @@
   flex: 1;
   min-width: 0;
 }
+.turbo_blog_wl {
+  /* Responsive: Stack filter on tablet and match pagination style */
+}
 @media only screen and (max-width: 980px) {
   .turbo_blog_wl__content-wrapper--with-filter {
     flex-direction: column;
@@ -524,6 +527,9 @@
     display: none;
   }
 }
+.turbo_blog_wl {
+  /* Phone: Simplify filter further */
+}
 @media only screen and (max-width: 767px) {
   .turbo_blog_wl__filter {
     padding: 0 0 1.5em 0 !important;
@@ -536,6 +542,11 @@
     padding: 0.375rem 0.625rem;
     font-size: 0.8em;
   }
+}
+.turbo_blog_wl {
+  /* ====================================
+  READ MORE STYLES
+  ==================================== */
 }
 .turbo_blog_wl__post-item-title {
   position: relative;
@@ -589,6 +600,9 @@ a:hover .turbo_blog_wl__read-more-arrow {
   content: " →";
   margin-left: 0.3125rem;
 }
+.turbo_blog_wl {
+  /* Responsive adjustments */
+}
 @media only screen and (max-width: 767px) {
   .turbo_blog_wl__post-item-title a {
     padding-right: 1.75rem;
@@ -605,61 +619,352 @@ a:hover .turbo_blog_wl__read-more-arrow {
     font-size: 0.75rem;
   }
 }
-/*!********************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./src/components/dynamic-module/module.scss ***!
-  \********************************************************************************************************************************************************************************************/
-.example_dynamic_module {
-  padding: 50px;
-  background-color: #f5f5f5;
-}
-.example_dynamic_module__inner {
-  position: relative;
-}
-.example_dynamic_module__title {
-  margin-bottom: 30px;
-}
-.example_dynamic_module__post-item {
-  margin-bottom: 20px;
-}
-.example_dynamic_module__post-item-title {
-  font-size: 18px;
-}
-/*!*******************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./src/components/parent-module/module.scss ***!
-  \*******************************************************************************************************************************************************************************************/
-.entry-content ul.example_parent_module {
-  list-style: none;
-}
-/*!*******************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./src/components/static-module/module.scss ***!
-  \*******************************************************************************************************************************************************************************************/
-.example_static_module {
-  padding: 30px;
-  background-color: #ecf4f7;
-}
-.example_static_module__inner {
+/*!*********************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./src/components/masonry-gallery/module.scss ***!
+  \*********************************************************************************************************************************************************************************************/
+.masonry_gallery__preview {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  background: #f7f7f7;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  text-align: center;
+  min-height: 200px;
+}
+.masonry_gallery__preview-icon {
+  color: #999;
+  margin-bottom: 1rem;
+}
+.masonry_gallery__preview-icon svg {
+  width: 64px;
+  height: 64px;
+}
+.masonry_gallery__preview-text h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 0.5rem;
+}
+.masonry_gallery__preview-text p {
+  font-size: 0.95rem;
+  color: #666;
+  margin: 0;
+}
+
+.masonry_gallery__grid {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-auto-rows: 200px;
+  grid-auto-flow: dense;
+  width: 100%;
+  margin: 0 auto;
+}
+@media (max-width: 980px) {
+  .masonry_gallery__grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+  }
+}
+@media (max-width: 767px) {
+  .masonry_gallery__grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
+    grid-auto-rows: 150px !important;
+  }
+}
+
+.masonry_gallery__item {
+  overflow: hidden;
+  border-radius: 4px;
+  position: relative;
+  display: flex;
+}
+.masonry_gallery__item--tall {
+  grid-row: span 2;
+}
+.masonry_gallery__item--wide {
+  grid-column: span 2;
+}
+.masonry_gallery__item--big {
+  grid-row: span 2;
+  grid-column: span 2;
+}
+
+.masonry_gallery__item-content {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   position: relative;
 }
-.example_static_module__image {
-  flex: 0 0 50%;
-  max-width: 50%;
-  padding-right: 20px;
+
+.masonry_gallery__lightbox-link {
+  flex: 1;
+  display: block;
+  position: relative;
+  overflow: hidden;
 }
-.example_static_module__content-container {
-  flex: 0 0 50%;
-  max-width: 50%;
-  padding-left: 20px;
+.masonry_gallery__lightbox-link img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
-.example_static_module__summary {
-  margin: 10px 0;
+
+.masonry_gallery__caption {
+  padding: 8px 12px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
   font-size: 14px;
-  line-height: 1.5;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.masonry_gallery__inner {
+  width: 100%;
+}
+.masonry_gallery__title {
+  margin-bottom: 2rem;
+}
+.masonry_gallery__empty {
+  padding: 2rem;
+  text-align: center;
   color: #666;
-  background-color: #f8f9fa;
-  padding: 15px;
+  font-size: 1.1rem;
+}
+.masonry_gallery__grid {
+  width: 100%;
+  margin: 0 auto;
+}
+@media (max-width: 980px) {
+  .masonry_gallery__grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)) !important;
+  }
+}
+@media (max-width: 767px) {
+  .masonry_gallery__grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
+    grid-auto-rows: 150px !important;
+  }
+}
+.masonry_gallery__item {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-radius: 5px;
+}
+.masonry_gallery__item:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  z-index: 1;
+}
+.masonry_gallery__item:focus {
+  outline: 2px solid #2271b1;
+  outline-offset: 2px;
+}
+.masonry_gallery__item img {
+  border-radius: 5px;
+  transition: transform 0.3s ease;
+}
+.masonry_gallery__item:hover img {
+  transform: scale(1.05);
+}
+@media (max-width: 767px) {
+  .masonry_gallery__item--wide, .masonry_gallery__item--tall, .masonry_gallery__item--big {
+    grid-column: span 1 !important;
+    grid-row: span 1 !important;
+  }
+}
+.masonry_gallery__caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  color: #fff;
+  padding: 1rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.masonry_gallery__item:hover .masonry_gallery__caption {
+  opacity: 1;
+  transform: translateY(0);
+}
+.masonry_gallery__caption p {
+  margin: 0;
+}
+.masonry_gallery__pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+  padding: 1rem 0;
+  flex-wrap: wrap;
+}
+@media (max-width: 767px) {
+  .masonry_gallery__pagination {
+    gap: 0.25rem;
+  }
+}
+.masonry_gallery__pagination-arrow {
+  padding: 0.5rem 1rem;
+  background: #2271b1;
+  color: #fff;
+  border: none;
   border-radius: 4px;
-  border-left: 3px solid #007cba;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.masonry_gallery__pagination-arrow:hover:not(.masonry_gallery__pagination-disabled) {
+  background: #135e96;
+  transform: scale(1.05);
+}
+.masonry_gallery__pagination-arrow:focus {
+  outline: 2px solid #2271b1;
+  outline-offset: 2px;
+}
+.masonry_gallery__pagination-arrow.masonry_gallery__pagination-disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+@media (max-width: 767px) {
+  .masonry_gallery__pagination-arrow {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+  }
+}
+.masonry_gallery__pagination-numbers {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.masonry_gallery__pagination-number {
+  min-width: 2.5rem;
+  height: 2.5rem;
+  padding: 0.5rem;
+  background: #fff;
+  color: #2271b1;
+  border: 2px solid #2271b1;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.masonry_gallery__pagination-number:hover {
+  background: #f0f0f1;
+  transform: scale(1.1);
+}
+.masonry_gallery__pagination-number:focus {
+  outline: 2px solid #2271b1;
+  outline-offset: 2px;
+}
+.masonry_gallery__pagination-number.masonry_gallery__pagination-current {
+  background: #2271b1;
+  color: #fff;
+  transform: scale(1.15);
+  box-shadow: 0 2px 8px rgba(34, 113, 177, 0.3);
+}
+@media (max-width: 767px) {
+  .masonry_gallery__pagination-number {
+    min-width: 2rem;
+    height: 2rem;
+    font-size: 0.8rem;
+  }
+}
+.masonry_gallery__pagination-ellipsis {
+  padding: 0.5rem;
+  color: #666;
+  font-size: 0.9rem;
+  min-width: 2.5rem;
+  text-align: center;
+}
+@media (max-width: 767px) {
+  .masonry_gallery__pagination-ellipsis {
+    min-width: 2rem;
+    font-size: 0.8rem;
+  }
+}
+
+@keyframes masonry-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+.masonry_gallery__loading {
+  animation: masonry-pulse 1.5s ease-in-out infinite;
+}
+
+@media print {
+  .masonry_gallery__pagination {
+    display: none;
+  }
+  .masonry_gallery__item {
+    cursor: default;
+  }
+  .masonry_gallery__item:hover {
+    transform: none;
+    box-shadow: none;
+  }
+}
+@media (max-width: 980px) {
+  .et_pb_column .masonry_gallery__item.et_pb_module {
+    margin-bottom: 0 !important;
+  }
+}
+/*!**************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[2].use[2]!./src/components/masonry-gallery-item/module.scss ***!
+  \**************************************************************************************************************************************************************************************************/
+.masonry_gallery_item__preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: #f7f7f7;
+  border: 2px dashed #ddd;
+  border-radius: 4px;
+  min-height: 120px;
+  text-align: center;
+}
+.masonry_gallery_item__preview-icon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: #999;
+}
+.masonry_gallery_item__preview-icon svg {
+  width: 48px;
+  height: 48px;
+}
+.masonry_gallery_item__preview-icon p {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #666;
 }

@@ -6,6 +6,7 @@ import {
   moduleStatic,
 } from './icons';
 
+
 // Add module icons to the icon library.
 addFilter('divi.iconLibrary.icon.map', 'extensionExample', (icons) => {
   return {

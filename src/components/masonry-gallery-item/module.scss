@@ -1,0 +1,33 @@
+// Masonry Gallery Item Styles
+
+.masonry_gallery_item__preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: #f7f7f7;
+  border: 2px dashed #ddd;
+  border-radius: 4px;
+  min-height: 120px;
+  text-align: center;
+
+  &-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: #999;
+
+    svg {
+      width: 48px;
+      height: 48px;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #666;
+    }
+  }
+}

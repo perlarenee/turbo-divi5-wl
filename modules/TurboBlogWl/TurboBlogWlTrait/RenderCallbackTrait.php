@@ -314,6 +314,169 @@ trait RenderCallbackTrait {
 	}
 
 	/**
+	 * Initialize custom profile image functionality
+	 * Call this in your module's init or constructor
+	 *
+	 * @since ??
+	 */
+	public static function init_custom_profile_image() {
+		// Only run once
+		static $initialized = false;
+		if ( $initialized ) {
+			return;
+		}
+		$initialized = true;
+		
+		// Enqueue media scripts on profile pages
+		add_action( 'admin_enqueue_scripts', [ __CLASS__, 'enqueue_profile_image_scripts' ] );
+		
+		// Add profile field
+		add_action( 'show_user_profile', [ __CLASS__, 'add_custom_profile_image_field' ] );
+		add_action( 'edit_user_profile', [ __CLASS__, 'add_custom_profile_image_field' ] );
+		
+		// Save profile field
+		add_action( 'personal_options_update', [ __CLASS__, 'save_custom_profile_image' ] );
+		add_action( 'edit_user_profile_update', [ __CLASS__, 'save_custom_profile_image' ] );
+	}
+
+	/**
+	 * Enqueue media uploader scripts on user profile pages
+	 *
+	 * @since ??
+	 *
+	 * @param string $hook Current admin page hook.
+	 */
+	public static function enqueue_profile_image_scripts( $hook ) {
+		// Only load on user profile pages
+		if ( $hook !== 'profile.php' && $hook !== 'user-edit.php' ) {
+			return;
+		}
+		
+		// Enqueue WordPress media uploader
+		wp_enqueue_media();
+	}
+
+	/**
+	 * Add Custom Profile Image Field to User Profile
+	 *
+	 * @since ??
+	 *
+	 * @param \WP_User $user User object.
+	 */
+	public static function add_custom_profile_image_field( $user ) {
+		$profile_image_id = get_user_meta( $user->ID, 'custom_profile_image', true );
+		$profile_image_url = $profile_image_id ? wp_get_attachment_image_url( $profile_image_id, 'thumbnail' ) : '';
+		?>
+		<h3><?php _e( 'Custom Profile Image', 'divi' ); ?></h3>
+		<table class="form-table">
+			<tr>
+				<th><label for="custom_profile_image"><?php _e( 'Profile Image', 'divi' ); ?></label></th>
+				<td>
+					<input type="hidden" id="custom_profile_image" name="custom_profile_image" value="<?php echo esc_attr( $profile_image_id ); ?>" />
+					<div id="profile_image_preview" style="margin-bottom: 10px;">
+						<?php if ( $profile_image_url ): ?>
+							<img src="<?php echo esc_url( $profile_image_url ); ?>" style="max-width: 150px; height: auto; display: block;" />
+						<?php endif; ?>
+					</div>
+					<button type="button" class="button" id="upload_profile_image_button">
+						<?php echo $profile_image_url ? __( 'Change Image', 'divi' ) : __( 'Upload Image', 'divi' ); ?>
+					</button>
+					<?php if ( $profile_image_url ): ?>
+						<button type="button" class="button" id="remove_profile_image_button"><?php _e( 'Remove Image', 'divi' ); ?></button>
+					<?php endif; ?>
+					<p class="description"><?php _e( 'Upload a custom profile image. If not set, your Gravatar will be used.', 'divi' ); ?></p>
+				</td>
+			</tr>
+		</table>
+
+		<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			var mediaUploader;
+			
+			$('#upload_profile_image_button').on('click', function(e) {
+				e.preventDefault();
+				
+				if (mediaUploader) {
+					mediaUploader.open();
+					return;
+				}
+				
+				mediaUploader = wp.media({
+					title: '<?php _e( 'Choose Profile Image', 'divi' ); ?>',
+					button: {
+						text: '<?php _e( 'Use this image', 'divi' ); ?>'
+					},
+					multiple: false
+				});
+				
+				mediaUploader.on('select', function() {
+					var attachment = mediaUploader.state().get('selection').first().toJSON();
+					$('#custom_profile_image').val(attachment.id);
+					$('#profile_image_preview').html('<img src="' + attachment.url + '" style="max-width: 150px; height: auto; display: block;" />');
+					$('#upload_profile_image_button').text('<?php _e( 'Change Image', 'divi' ); ?>');
+					
+					if ($('#remove_profile_image_button').length === 0) {
+						$('#upload_profile_image_button').after('<button type="button" class="button" id="remove_profile_image_button"><?php _e( 'Remove Image', 'divi' ); ?></button>');
+					}
+				});
+				
+				mediaUploader.open();
+			});
+			
+			$(document).on('click', '#remove_profile_image_button', function(e) {
+				e.preventDefault();
+				$('#custom_profile_image').val('');
+				$('#profile_image_preview').html('');
+				$('#upload_profile_image_button').text('<?php _e( 'Upload Image', 'divi' ); ?>');
+				$(this).remove();
+			});
+		});
+		</script>
+		<?php
+	}
+
+	/**
+	 * Save Custom Profile Image
+	 *
+	 * @since ??
+	 *
+	 * @param int $user_id User ID.
+	 */
+	public static function save_custom_profile_image( $user_id ) {
+		if ( ! current_user_can( 'edit_user', $user_id ) ) {
+			return false;
+		}
+		
+		if ( isset( $_POST['custom_profile_image'] ) ) {
+			update_user_meta( $user_id, 'custom_profile_image', intval( $_POST['custom_profile_image'] ) );
+		}
+	}
+
+	/**
+	 * Get Author Profile Image (Custom or Gravatar)
+	 *
+	 * @since ??
+	 *
+	 * @param int    $author_id Author user ID.
+	 * @param string $size      Image size.
+	 *
+	 * @return string Image URL.
+	 */
+	private static function get_author_profile_image( $author_id, $size = 'thumbnail' ) {
+		$custom_image_id = get_user_meta( $author_id, 'custom_profile_image', true );
+		
+		if ( $custom_image_id ) {
+			$custom_image_url = wp_get_attachment_image_url( $custom_image_id, $size );
+			if ( $custom_image_url ) {
+				return $custom_image_url;
+			}
+		}
+		
+		// Fallback to Gravatar
+		return get_avatar_url( $author_id, array( 'size' => 96 ) );
+	}
+
+	/**
 	 * Dynamic module render callback which outputs server side rendered HTML on the Front-End.
 	 *
 	 * @since ??
@@ -327,6 +490,9 @@ trait RenderCallbackTrait {
 	 */
 	public static function render_callback( $attrs, $content, $block, $elements ) {
 
+		// Initialize custom profile image functionality
+		self::init_custom_profile_image();
+		
 		$post_heading_level  = $attrs['postTitle']['decoration']['font']['font']['desktop']['value']['headingLevel'];
 		// Validate posts per page to prevent crashes
 		$posts_per_page = $attrs['postItems']['innerContent']['desktop']['value']['postsNumber'] ?? '';
@@ -797,15 +963,11 @@ trait RenderCallbackTrait {
 						
 						if ( $show_author === 'on' ) {
 							$author_name   = get_the_author_meta( 'display_name', $post->post_author );
-							$author_avatar = get_avatar(
-								$post->post_author,
-								96,
-								'',
-								$author_name,
-								[
-									'class' => 'turbo_blog_wl__post-author-avatar',
-								]
-							);
+							
+							// Get custom profile image or fallback to Gravatar (standalone method)
+							$author_image_url = self::get_author_profile_image( $post->post_author, 'thumbnail' );
+							$author_avatar = '<img src="' . esc_url( $author_image_url ) . '" alt="' . esc_attr( $author_name ) . '" class="turbo_blog_wl__post-author-avatar" width="96" height="96" />';
+						
 							
 							$author_details_parts = [];
 							
