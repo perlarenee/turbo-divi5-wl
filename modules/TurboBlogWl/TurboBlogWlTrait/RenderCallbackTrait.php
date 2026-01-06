@@ -293,10 +293,11 @@ trait RenderCallbackTrait {
 				// Check if this looks like content (not a setting)
 				if ( strlen( $value ) > 10 && strip_tags( $value ) !== '' ) {
 					// Skip if it's likely a URL, class name, or setting
-					if ( strpos( $value, 'http' ) === 0 || 
-						 strpos( $value, 'class' ) === 0 || 
-						 strpos( $value, '#' ) === 0 ||
-						 preg_match( '/^[\d\s\w-]+$/', $value ) ) {
+					 if ( strpos( $value, 'http' ) === 0 || 
+						strpos( $value, 'class' ) === 0 || 
+						strpos( $value, '#' ) === 0 ||
+						preg_match( '/^[\d\s\w-]+$/', $value ) ||
+						preg_match( '/^\d+\.\d+\.\d+/', $value ) ) { //  - matches version patterns
 						continue;
 					}
 					

@@ -65,7 +65,8 @@ const getCustomExcerpt = (post: any, length: number): string => {
   if (post?.excerpt?.rendered && post.excerpt.rendered.trim()) {
     const tmp = document.createElement('div');
     tmp.innerHTML = post.excerpt.rendered;
-    const text = tmp.textContent || tmp.innerText || '';
+    let text = tmp.textContent || tmp.innerText || '';
+    text = cleanExtractedText(text); // ADD THIS LINE
     if (text.trim()) {
       return truncateText(text, length);
     }
@@ -75,6 +76,7 @@ const getCustomExcerpt = (post: any, length: number): string => {
     const tmp = document.createElement('div');
     tmp.innerHTML = post.content.rendered;
     let text = tmp.textContent || tmp.innerText || '';
+    text = cleanExtractedText(text); // ADD THIS LINE
     text = text.replace(/\s+/g, ' ').trim();
     
     if (text) {
@@ -98,6 +100,17 @@ const truncateText = (text: string, length: number): string => {
   }
   
   return truncated + '...';
+};
+
+// Helper function to remove version strings and metadata from extracted text
+const cleanExtractedText = (text: string): string => {
+  // Remove version strings like "5.0.0-public-beta", "5.0.0-public-beta.1", etc.
+  text = text.replace(/\b\d+\.\d+\.\d+[-\w.]*\b/g, ' ');
+  
+  // Remove excessive whitespace created by removals
+  text = text.replace(/\s+/g, ' ').trim();
+  
+  return text;
 };
 
 // Utility function to clean and validate comma-separated IDs
